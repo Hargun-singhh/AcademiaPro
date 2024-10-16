@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fine Upload</title>
+    <style>
+        * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.navbar {
+    background-color: #822e2e;
+    width: 100%;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.navbar-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.navbar-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s;
+}
+
+.navbar-links a:hover {
+    color: #ddd;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 70px); /* Adjust height based on navbar */
+    margin-top: 70px; /* Align with navbar height */    
+}
+
+.fine-form {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow:0 3px 5px 10px rgba(220, 12, 12, 0.514);
+    width: 90%;
+    max-width: 1500px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="date"],
+textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.upload-btn {
+    background-color: #2e3b55;
+    color: white;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 1rem;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.upload-btn:hover {
+    background-color: #1e2a3d;
+}
+
+@media (max-width: 768px) {
+    .navbar-links {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: flex-end;
+    }
+
+    .container {
+        padding: 1rem;
+    }
+    
+    .fine-form {
+        width: 100%;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">FINE UPLOAD</div>
+        <div class="navbar-links">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <form class="fine-form">
+            <div class="form-group">
+                <label for="rollNumber">ROLL NUMBER :-</label>
+                <input type="text" id="rollNumber" placeholder="Enter Roll Number">
+            </div>
+
+            <div class="form-group">
+                <label for="reason">REASON :-</label>
+                <input type="text" id="reason" placeholder="Enter Reason">
+            </div>
+
+            <div class="form-group">
+                <label for="date">DATE :-</label>
+                <input type="date" id="date">
+            </div>
+
+            <div class="form-group">
+                <label for="remarks">REMARKS :-</label>
+                <textarea id="remarks" placeholder="Enter Remarks"></textarea>
+            </div>
+
+            <button type="button" class="upload-btn" onclick="uploadFine()">UPLOAD STUDENT FINE</button>
+        </form>
+    </div>
+
+    <script>
+        function uploadFine() {
+    const rollNumber = document.getElementById('rollNumber').value;
+    const reason = document.getElementById('reason').value;
+    const date = document.getElementById('date').value;
+    const remarks = document.getElementById('remarks').value;
+
+    if (!rollNumber || !reason || !date) {
+        alert('Please fill in all required fields.');
+        return;
+    }
+
+    alert(`Fine uploaded successfully for Roll Number: ${rollNumber}\nReason: ${reason}\nDate: ${date}\nRemarks: ${remarks}`);
+}
+
+    </script>
+</body>
+</html>

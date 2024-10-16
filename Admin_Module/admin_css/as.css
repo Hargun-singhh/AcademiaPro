@@ -1,0 +1,147 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  .navbar {
+    background-color: #a63830; 
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .logo {
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+  
+  .nav-links {
+    list-style: none;
+    display: flex;
+  }
+  
+  .nav-links li {
+    margin-left: 20px;
+  }
+  
+  .nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.1em;
+  }
+  
+  .nav-links a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Hamburger Menu (for mobile) */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+  }
+  
+  .hamburger span {
+    background-color: white;
+    height: 2px;
+    width: 25px;
+    margin: 4px;
+  }
+  
+  .container {
+    margin-top: 80px; 
+  }
+  
+  .card-wrapper {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .card {
+    background-color: white;
+    border-radius: 10px ;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 30%;
+    min-width: 250px;
+    max-width: 300px;
+    border: 2px dotted #a63830;
+  }
+  
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button.reject {
+    background-color: #a63830;
+    color: white;
+  }
+  
+  button.approve {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  @media (max-width: 768px) {
+    .card-wrapper {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .card {
+      width: 90%;
+    }
+  
+    .nav-links {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 60px;
+      right: 20px;
+      background-color: #a63830;
+      border-radius: 5px;
+      width: 150px;
+      padding: 10px;
+    }
+  
+    .nav-links li {
+      margin: 10px 0;
+    }
+  
+    .hamburger {
+      display: flex;
+    }
+  
+    .nav-links.active {
+      display: flex;
+    }
+  }
+    .footer{
+     
+      height: 20px;
+      width: 100%;
+      background-color: #a63830;
+      position: fixed;
+      left: 0;
+      bottom: 0;
+    }

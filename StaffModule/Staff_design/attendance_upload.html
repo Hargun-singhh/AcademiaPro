@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Attendance Upload</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #e9f7ef;
+      margin: 0;
+    }
+
+    .container-top {
+    background-color: #324E30 ;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    height: 70px;
+   
+}
+
+    .container-bottom {
+    background-color: #324E30; /* Same color as top */
+    height: 70px; /* Adjust height as needed */
+}
+
+.content {
+    background-color: white ;
+    margin: 20px auto;
+    /* margin-top: 20px; */
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 1150px;
+    
+}
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    select,
+    input[type="date"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    th,
+    td {
+      padding: 10px;
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f0f0f0;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+
+    .inline{
+        display: inline-block;
+        margin-right: 20px;
+    }
+
+    label {
+    display: block;
+    margin-bottom: 5px;
+    }
+
+input[type="text"],
+textarea {
+    width: 700px;
+    padding: 10px;
+   
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+  </style>
+</head>
+<body>
+ 
+    <div class="container-top">
+        <h1>Attendance Upload</h1>
+    </div>
+
+
+
+    <div class="content">
+      
+    <form>
+      <div class="inline">
+        <label for="group">Group:</label>
+        <input type="text" id="group" name="group">
+        <select id="group" name="group">
+          <option value="G-10">G-10</option>
+          <option value="G-11">G-11</option>
+          <option value="G-12">G-12</option>
+        </select>
+      </div>
+
+      <div class="inline">
+        <label for="subject">Subject:</label>
+        <select id="subject" name="subject">
+          <option value="FEE-9">FEE-9</option>
+          <option value="MATHS">MATHS</option>
+          <option value="SCIENCE">SCIENCE</option>
+        </select>
+      </div>
+
+      <div class="inline">
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date">
+      </div>
+
+      <div>
+        <label for="set-all-attendance">Set Attendance for All Students:</label>
+        <select id="set-all-attendance" name="set-all-attendance">
+          <option value="">Select</option>
+          <option value="Present">Present</option>
+          <option value="Absent">Absent</option>
+          <option value="ML">ML</option>
+          <option value="DL">DL</option>
+        </select>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>S.No.</th>
+            <th>Student Name</th>
+            <th>Student Roll No</th>
+            <th>Attendance</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Harshita Sharma</td>
+            <td>2310990768</td>
+            <td>
+              <select>
+                <option value="Present">Present</option>
+                <option value="Absent">Absent</option>
+                <option value="ML">ML</option>
+                <option value="DL">DL</option>
+              </select>
+            </td>
+          </tr>
+
+          <tr>
+            <td>2</td>
+            <td>Hargun Deep Singh</td>
+            <td>2310990778</td>
+            <td>
+              <select>
+                <option value="Present">Present</option>
+                <option value="Absent">Absent</option>
+                <option value="ML">ML</option>
+                <option value="DL">DL</option>
+              </select>
+            </td>
+          </tr>
+
+          <tr>
+            <td>3</td>
+            <td>Kashvi Chuchra</td>
+            <td>2310990793</td>
+            <td>
+              <select>
+                <option value="Present">Present</option>
+                <option value="Absent">Absent</option>
+                <option value="ML">ML</option>
+                <option value="DL">DL</option>
+              </select>
+            </td>
+          </tr>
+
+          <tr>
+            <td>4</td>
+            <td>Noor Gumber</td>
+            <td>2310990840</td>
+            <td>
+              <select>
+                <option value="Present">Present</option>
+                <option value="Absent">Absent</option>
+                <option value="Absent">Absent</option>
+                <option value="ML">ML</option>
+                <option value="DL">DL</option>
+              </select>
+            </td>
+            </tr>
+
+            <tr>
+              <td>1</td>
+              <td>Harshita Sharma</td>
+              <td>2310990768</td>
+              <td>
+                <select>
+                  <option value="Present">Present</option>
+                  <option value="Absent">Absent</option>
+                  <option value="ML">ML</option>
+                  <option value="DL">DL</option>
+                </select>
+              </td>
+            </tr>
+  
+            <tr>
+              <td>2</td>
+              <td>Hargun Deep Singh</td>
+              <td>2310990778</td>
+              <td>
+                <select>
+                  <option value="Present">Present</option>
+                  <option value="Absent">Absent</option>
+                  <option value="ML">ML</option>
+                  <option value="DL">DL</option>
+                </select>
+              </td>
+            </tr>
+  
+            <tr>
+              <td>3</td>
+              <td>Kashvi Chuchra</td>
+              <td>2310990793</td>
+              <td>
+                <select>
+                  <option value="Present">Present</option>
+                  <option value="Absent">Absent</option>
+                  <option value="ML">ML</option>
+                  <option value="DL">DL</option>
+                </select>
+              </td>
+            </tr>
+  
+            <tr>
+              <td>4</td>
+              <td>Noor Gumber</td>
+              <td>2310990840</td>
+              <td>
+                <select>
+                  <option value="Present">Present</option>
+                  <option value="Absent">Absent</option>
+                  <option value="Absent">Absent</option>
+                  <option value="ML">ML</option>
+                  <option value="DL">DL</option>
+                </select>
+              </td>
+              </tr>
+
+              <tr>
+                <td>1</td>
+                <td>Harshita Sharma</td>
+                <td>2310990768</td>
+                <td>
+                  <select>
+                    <option value="Present">Present</option>
+                    <option value="Absent">Absent</option>
+                    <option value="ML">ML</option>
+                    <option value="DL">DL</option>
+                  </select>
+                </td>
+              </tr>
+    
+              <tr>
+                <td>2</td>
+                <td>Hargun Deep Singh</td>
+                <td>2310990778</td>
+                <td>
+                  <select>
+                    <option value="Present">Present</option>
+                    <option value="Absent">Absent</option>
+                    <option value="ML">ML</option>
+                    <option value="DL">DL</option>
+                  </select>
+                </td>
+              </tr>
+    
+              <tr>
+                <td>3</td>
+                <td>Kashvi Chuchra</td>
+                <td>2310990793</td>
+                <td>
+                  <select>
+                    <option value="Present">Present</option>
+                    <option value="Absent">Absent</option>
+                    <option value="ML">ML</option>
+                    <option value="DL">DL</option>
+                  </select>
+                </td>
+              </tr>
+    
+              <tr>
+                <td>4</td>
+                <td>Noor Gumber</td>
+                <td>2310990840</td>
+                <td>
+                  <select>
+                    <option value="Present">Present</option>
+                    <option value="Absent">Absent</option>
+                    <option value="Absent">Absent</option>
+                    <option value="ML">ML</option>
+                    <option value="DL">DL</option>
+                  </select>
+                </td>
+                </tr>
+
+                <tr>
+                  <td>1</td>
+                  <td>Harshita Sharma</td>
+                  <td>2310990768</td>
+                  <td>
+                    <select>
+                      <option value="Present">Present</option>
+                      <option value="Absent">Absent</option>
+                      <option value="ML">ML</option>
+                      <option value="DL">DL</option>
+                    </select>
+                  </td>
+                </tr>
+      
+                <tr>
+                  <td>2</td>
+                  <td>Hargun Deep Singh</td>
+                  <td>2310990778</td>
+                  <td>
+                    <select>
+                      <option value="Present">Present</option>
+                      <option value="Absent">Absent</option>
+                      <option value="ML">ML</option>
+                      <option value="DL">DL</option>
+                    </select>
+                  </td>
+                </tr>
+      
+                <tr>
+                  <td>3</td>
+                  <td>Kashvi Chuchra</td>
+                  <td>2310990793</td>
+                  <td>
+                    <select>
+                      <option value="Present">Present</option>
+                      <option value="Absent">Absent</option>
+                      <option value="ML">ML</option>
+                      <option value="DL">DL</option>
+                    </select>
+                  </td>
+                </tr>
+      
+                <tr>
+                  <td>4</td>
+                  <td>Noor Gumber</td>
+                  <td>2310990840</td>
+                  <td>
+                    <select>
+                      <option value="Present">Present</option>
+                      <option value="Absent">Absent</option>
+                      <option value="Absent">Absent</option>
+                      <option value="ML">ML</option>
+                      <option value="DL">DL</option>
+                    </select>
+                  </td>
+                  </tr>
+
+            
+
+            </tbody>
+        </table>
+    </form>
+
+</div>
+
+<div class="container-bottom"></div>
+
+</body>
+</html>

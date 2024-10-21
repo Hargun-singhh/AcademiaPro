@@ -1,0 +1,139 @@
+
+
+body {
+    font-family: sans-serif;
+    background-color: #e9f7ef;
+    margin: 0;
+}
+
+.container-top {
+    background-color: #324E30;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    height: 40px;
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    width: 100%; /* Full width */
+    position: fixed; /* Fix position */
+    top: 0; /* Stick to the top */
+    left: 0; /* Align to the left */
+    z-index: 1000; /* Ensure it stays above other content */
+}
+
+.container-bottom {
+    background-color: #324E30; /* Same color as top */
+    height: 40px; /* Adjust height as needed */
+    width: 100%; /* Full width */
+    position: fixed; /* Fix position */
+    bottom: 0; /* Stick to the bottom */
+    left: 0; /* Align to the left */
+}
+
+.content {
+    background-color: white;
+    position: fixed; /* Keep the content fixed */
+    top: 90px;
+     /* Adjust this value for top margin */
+    left: 50%; /* Start centering */
+    transform: translateX(-50%); /* Center horizontally */
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 90%; /* Use percentage for responsiveness */
+    max-width: 700px; /* Limit max width */
+    z-index: 999; /* Ensure it stays above other content */
+    margin-bottom: 80px; /* Add bottom margin */
+}
+
+.form-container {
+    display: flex;
+    justify-content: space-between; /* Space between form fields and drop zone */
+    align-items: flex-start; /* Align the top of form and drop zone */
+    gap: 20px; /* Space between the form fields and the upload section */
+}
+
+.form-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Space between input fields */
+    flex: 1.2;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+textarea {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.drop-zone {
+    border: 2px dashed #767474;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 10px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Vertical centering */
+    align-items: center; /* Horizontal centering */
+    height: 200px; /* Set a height for proper vertical centering */
+}
+
+.drop-zone a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+button {
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin-right: 10px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 600px) {
+    .content {
+        margin: 10px;
+        padding: 10px;
+    }
+
+    input[type="text"],
+    textarea {
+        font-size: 14px;
+    }
+}
+
+.file-list-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+#file-list {
+    flex: 1;
+}
+
+#add-more-files {
+    flex: 0;
+}
+
+
+
+
+

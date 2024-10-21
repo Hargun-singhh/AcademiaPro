@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Resources Uploader</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/StaffModule/Staff_Css/external.css">
+</head>
+<body>
+    <div class="container-top">
+        <h1>Student Resources Uploader</h1>
+    </div>
+    <div class="content">
+        <h2>Upload Files</h2>
+        <hr>
+        <div class="form-container">
+            <div class="form-fields">
+                <input type="text" id="description" name="description" placeholder="Description">
+                <label for="heading">Heading:</label>
+                <input type="text" id="heading" name="heading">
+                <label for="subheading">Sub-Heading:</label>
+                <input type="text" id="subheading" name="subheading">
+            </div>
+
+            <div class="drop-zone" id="drop-zone">
+                <i class="fa fa-upload"></i>
+                <p>Drop files to upload <br> or <a href="#" id="browse">browse</a></p>
+                <input type="file" id="file-input" multiple style="display: none;">
+            </div>
+        </div>
+        <button id="upload-file">Upload File</button>
+        <button id="cancel-upload" style="background-color: grey;">Cancel</button>
+      
+    </div>
+    <div class="container-bottom"></div>
+
+    <script>
+        const fileInput = document.getElementById('file-input');
+        const dropZone = document.getElementById('drop-zone');
+        const fileList = document.getElementById('file-list');
+        // const addMoreFilesButton = document.getElementById('add-more-files');
+        const uploadFileButton = document.getElementById('upload-file');
+
+        // Show file input when "browse" is clicked
+        document.getElementById('browse').addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        // Handle file selection
+        fileInput.addEventListener('change', (event) => {
+    const files = event.target.files;
+    displayFiles(files);
+    dropZone.style.display = 'none'; // Hide drop zone after file selection
+});
+
+       // Function to display selected files
+       function displayFiles(files) {
+    fileList.innerHTML = ''; // Clear previous file list
+    if (files.length > 0) {
+        const fileItem = document.createElement('div');
+        fileItem.textContent = files[0].name; // Only show the first file
+        fileList.appendChild(fileItem);
+    }
+}
+
+
+        // Upload file functionality
+        uploadFileButton.addEventListener('click', () => {
+    const files = fileInput.files;
+    if (files.length > 0) {
+        alert('File uploaded successfully: ' + files[0].name);
+        // Optionally reset the file input and displayed files after upload
+        fileInput.value = '';
+        fileList.innerHTML = '';
+        dropZone.style.display = 'block'; // Show drop zone again
+    } else {
+        alert('No file selected for upload.');
+    }
+});
+    </script>
+</body>
+</html>
+

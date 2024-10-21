@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Club Management Page</title>
+    <style>
+        * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #fff;
+    color: #333;
+}
+
+header {
+    background-color: #8B0000;
+    color: #fff;
+    padding: 15px 20px;
+    text-align: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.container {
+    max-width: 800px;
+    margin: 80px auto 0 auto;
+    padding: 20px;
+    border: 5px solid #8B0000;
+    border-radius: 10px;
+    background-color: #fff;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+label {
+    font-size: 1.2rem;
+}
+
+input[type="text"],
+input[type="date"] {
+    padding: 10px;
+    font-size: 1rem;
+    width: 100%;
+    border: 2px solid #333;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.banner-preview {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.preview-box {
+    border: 2px solid #333;
+    border-radius: 10px;
+    height: 400px;
+    display: flex;
+    width: 100%;
+    background-color: #f8f8f8;
+}
+
+.preview-box img {
+    max-width: 100%;
+    max-height: 100%;
+    
+    border-radius: 10px;
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.upload-button {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    width: 250px;
+    display: inline-block;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.upload-button input {
+    display: none;
+}
+
+.submit-button {
+    background-color: #333;
+    font-size: 20px;
+    width: 250px;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .container {
+        padding: 10px;
+    }
+    
+    input[type="text"],
+    input[type="date"] {
+        font-size: 0.9rem;
+    }
+
+    .upload-button, .submit-button {
+        font-size: 0.1rem;
+        padding: 8px 16px;
+
+    }
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>CLUB MANAGEMENT PAGE</h1>
+    </header>
+    <div class="container">
+        <div class="form-container">
+            <label for="event-name">Event Name :</label>
+            <input type="text" id="event-name" placeholder="Enter event name">
+            <label for="event-date">Event Date :</label>
+            <input type="date" id="event-date">
+            <div class="banner-preview">
+                <p>PREVIEW BANNER FOR EVENT</p>
+                <div class="preview-box">
+                    <img id="banner-image" src="" alt="Banner Preview" class="hidden">
+                </div>
+                <div class="button-group">
+                    <label class="upload-button" for="banner-upload">
+                        <input type="file" id="banner-upload" accept="image/*">
+                        <span>UPLOAD BANNER</span>
+                    </label>
+                    <button class="submit-button" id="submit-btn">SUBMIT</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.getElementById('banner-upload').addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const bannerImage = document.getElementById('banner-image');
+            bannerImage.src = e.target.result;
+            bannerImage.classList.remove('hidden');
+        };
+        reader.readAsDataURL(file);
+    }
+});
+
+document.getElementById('submit-btn').addEventListener('click', function() {
+    // Display a success message
+    alert('Event details successfully registered');
+    
+    // Clear the input fields
+    document.getElementById('event-name').value = '';
+    document.getElementById('event-date').value = '';
+
+    // Clear the banner image preview
+    const bannerImage = document.getElementById('banner-image');
+    bannerImage.src = '';
+    bannerImage.classList.add('hidden');
+
+    // Reset the file input (if needed)
+    document.getElementById('banner-upload').value = '';
+});
+
+    </script>
+</body>
+</html>

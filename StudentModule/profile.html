@@ -1,0 +1,335 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+            background-color: #f2f2f2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            width: 80%;
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .profile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .profile img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .profile input[type="file"] {
+            display: none;
+        }
+        .profile label {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .profile h2 {
+            margin-top: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+        .profile p {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #666;
+        }
+        .settings {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 30px ;
+        }
+        .setting {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .setting img {
+            width: 50px;
+            height: 50px;
+        }
+        .setting p {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #333;
+        }
+        .profile h2 {
+            padding-top: 10px;
+        }
+ /* Responsive design */
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+            }
+            .profile img {
+                width: 80px;
+                height: 80px;
+            }
+            .setting img {
+                width: 40px;
+                height: 40px;
+            }
+        }
+        @media (max-width: 480px) {
+            .container {
+                width: 95%;
+            }
+            .profile img {
+                width: 60px;
+                height: 60px;
+            }
+            .setting img {
+                width: 30px;
+                height: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="profile">
+            <img src="" alt="Profile Picture" id="profile-picture">
+            <input type="file" id="file-input" accept="image/*">
+            <label for="file-input" id="upload-label">Upload Picture</label>
+            <h2>John Doe</h2>
+            <p>Software Engineer</p>
+        </div>
+        <div class="settings">
+            <div class="setting">
+                <img src="setting-icon-1.jpg" alt="Setting Icon 1">
+                <p>Setting 1</p>
+            </div>
+            <div class="setting">
+                <img src="setting-icon-2.jpg" alt="Setting Icon 2">
+                <p>Setting 2</p>
+            </div>
+            <div class="setting">
+                <img src="setting-icon-3.jpg" alt="Setting Icon 3">
+                <p>Setting 3</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        const fileInput = document.getElementById('file-input');
+        const profilePicture = document.getElementById('profile-picture');
+        const uploadLabel = document.getElementById('upload-label');
+
+        fileInput.addEventListener('change', (e) => {
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+            reader.onload = () => {
+                const imageDataUrl = reader.result;
+                profilePicture.src = imageDataUrl;
+                uploadLabel.style.display = 'none';
+            };
+            reader.readAsDataURL(file);
+        });
+    </script>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+            background-color: #f2f2f2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            width: 80%;
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .profile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .profile img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .profile input[type="file"] {
+            display: none;
+        }
+        .profile label {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .profile h2 {
+            margin-top: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+        .profile p {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #666;
+        }
+        .settings {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 30px ;
+        }
+        .setting {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .setting img {
+            width: 50px;
+            height: 50px;
+        }
+        .setting p {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #333;
+        }
+        body::before {
+            text-align: center;
+            position: absolute;
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background-color: #29527a;
+            color: white;
+            padding: 10px 0;
+        }
+       
+        /* .border{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color:   #29527a;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+        } */
+
+        
+ /* Responsive design */
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+            }
+            .profile img {
+                width: 80px;
+                height: 80px;
+            }
+            .setting img {
+                width: 40px;
+                height: 40px;
+            }
+        }
+        @media (max-width: 480px) {
+            .container {
+                width: 95%;
+            }
+            .profile img {
+                width: 60px;
+                height: 60px;
+            }
+            .setting img {
+                width: 30px;
+                height: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class=".border">
+        <h1>Profile</h1>
+    </div>
+
+    <div class="container">
+        <div class="profile">
+            <img src="" alt="Profile Picture" id="profile-picture">
+            <input type="file" id="file-input" accept="image/*">
+            <label for="file-input" id="upload-label">Upload Picture</label>
+            <h2>John Doe</h2>
+            <p>Software Engineer</p>
+        </div> 
+        <div class="settings">
+            <div class="setting">
+                <img src="setting-icon-1.jpg" alt="Session Icon 1">
+                <p>Session</p>
+            </div>
+            <div class="setting">
+                <img src="setting-icon-2.jpg" alt="change password Icon 2">
+                <p>Change Password</p>
+            </div>
+            <div class="setting">
+                <img src="setting-icon-3.jpg" alt="privacy Icon 3">
+                <p>Privacy</p>
+            </div>
+            <div class="setting">
+                <img src="setting-icon-3.jpg" alt="Logout Icon 3">
+                <p>Logout</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        const fileInput = document.getElementById('file-input');
+        const profilePicture = document.getElementById('profile-picture');
+        const uploadLabel = document.getElementById('upload-label');
+
+        fileInput.addEventListener('change', (e) => {
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+            reader.onload = () => {
+                const imageDataUrl = reader.result;
+                profilePicture.src = imageDataUrl;
+                uploadLabel.style.display = 'none';
+            };
+            reader.readAsDataURL(file);
+        });
+    </script>
+</body>
+</html>

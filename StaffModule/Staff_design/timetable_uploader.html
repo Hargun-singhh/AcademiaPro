@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Table Upload</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="/StaffModule/Staff_Css/external3.css">
+   
+</head>
+<body>
+
+<!-- Header Section -->
+<header>
+    <h2>TIME TABLE UPLOAD</h2>
+</header>
+
+<!-- Form Inputs -->
+<form>
+    <label for="batch">BATCH :</label>
+    <input type="text" id="batch" placeholder="Enter Batch">
+
+    <label for="semester">SEMESTER :</label>
+    <input type="text" id="semester" placeholder="Enter Semester">
+
+    <label for="department">DEPARTMENT :</label>
+    <input type="text" id="department" placeholder="Enter Department">
+
+    <label for="year">YEAR :</label>
+    <input type="text" id="year" placeholder="Enter Year">
+
+    <!-- Upload Area -->
+    <div class="upload-area" id="upload-area">
+        <i class="fa fa-upload"></i>
+        <p>Drop Time Table to upload <br> or <span id="browse-btn">browse</span></p>
+        <input type="file" id="file-input" accept="image/*">
+        <img id="preview-img" src="#" alt="Image Preview">
+    </div>
+
+  
+
+    <!-- Buttons for Upload and Cancel -->
+<div class="button-container">
+    <button id="upload-btn">Upload</button>
+    <button id="cancel-btn">Cancel</button>
+</div>
+</form>
+
+<!-- Footer Section -->
+<footer class="footer">
+</footer>
+
+<script>
+    const uploadArea = document.getElementById('upload-area');
+    const fileInput = document.getElementById('file-input');
+    const browseBtn = document.getElementById('browse-btn');
+    const previewImg = document.getElementById('preview-img');
+
+    browseBtn.addEventListener('click', () => {
+        fileInput.click();
+    });
+
+    fileInput.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        if (file && file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                previewImg.src = e.target.result;
+                previewImg.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    uploadArea.addEventListener('dragover', (event) => {
+        event.preventDefault();
+        uploadArea.style.backgroundColor = '#ddebd8';
+    });
+
+    uploadArea.addEventListener('dragleave', () => {
+        uploadArea.style.backgroundColor = 'transparent';
+    });
+
+    uploadArea.addEventListener('drop', (event) => {
+        event.preventDefault();
+        uploadArea.style.backgroundColor = 'transparent';
+        const file = event.dataTransfer.files[0];
+        if (file && file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                previewImg.src = e.target.result;
+                previewImg.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    const uploadBtn = document.getElementById('upload-btn');
+const cancelBtn = document.getElementById('cancel-btn');
+// const fileInput = document.getElementById('file-input');
+// const previewImg = document.getElementById('preview-img');
+
+uploadBtn.addEventListener('click', () => {
+    if (!fileInput.files.length) {
+        alert("File not selected! Please upload an image."); // Alert if no file is selected
+    } else {
+        // Logic to handle the upload (e.g., send the file to the server)
+        alert("File uploaded successfully!"); // Placeholder alert
+    }
+});
+
+cancelBtn.addEventListener('click', () => {
+    fileInput.value = ''; // Clear the file input
+    previewImg.src = ''; // Clear the image preview
+    previewImg.style.display = 'none'; // Hide the image
+});
+</script>
+
+</body>
+</html>

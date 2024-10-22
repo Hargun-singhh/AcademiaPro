@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DL/ML Approval</title>
+    <link rel="stylesheet" href="/StaffModule/Staff_Css/external4.css">
+   
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">DL/ML APPROVAL</div>
+        <div class="nav-links">
+            <a href="#">Home</a>
+            <a href="#">Services</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+        </div>
+        <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+    </div>
+
+    <div class="container">
+        <div class="header">DL/ML APPROVAL</div>
+        <div class="content">
+            <div>
+                <span>Leave Type</span>
+                <span>Duty Leave</span>
+            </div>
+            <div>
+                <span>Category</span>
+                <span>National Service Scheme (NSS)</span>
+            </div>
+            <div>
+                <span>Event Title</span>
+                <span>Mental Health Awareness</span>
+            </div>
+            <div>
+                <span>Leave From</span>
+                <span>26-07-2024</span>
+            </div>
+            <div>
+                <span>Leave To</span>
+                <span>26-07-2024</span>
+            </div>
+            <div>
+                <span>Lectures</span>
+                <span>1, 2, 3, 4</span>
+            </div>
+        </div>
+        <div class="status">
+            <button class="approve" onclick="handleAction('approved')">Approve</button>
+            <button class="reject" onclick="handleAction('rejected')">Reject</button>
+        </div>
+    </div>
+
+    <footer class="footer"></footer>
+
+    <script>
+        function toggleMenu() {
+            const navbar = document.querySelector('.navbar');
+            navbar.classList.toggle('active');
+        }
+
+        function handleAction(action) {
+            alert(`Leave has been ${action}.`);
+            const otherButton = action === 'approved' 
+                ? document.querySelector('.reject') 
+                : document.querySelector('.approve');
+            otherButton.remove();
+        }
+    </script>
+</body>
+</html>

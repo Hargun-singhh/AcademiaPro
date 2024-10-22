@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+    @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+    @import url('https://fonts.googleapis.com/css2?family=Abel&display=swap');
+    
+    * {
+      box-sizing: border-box;
+    }
+    
+    body {
+        background: rgb(28, 69, 98);
+        background: linear-gradient(140deg, rgb(28, 69, 98) 7%, rgba(255,255,255,1) 100%);
+        
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      font-family: 'Montserrat', sans-serif;
+      height: 100vh;
+      margin: -20px 0 50px;
+    }
+    
+    h1 {
+      font-weight: bold;
+      margin: 0;
+      color: bl;
+    }
+    
+    .error {
+      color: red;
+    }
+    
+    p {
+      font-size: 14px;
+      font-weight: 100;
+      line-height: 20px;
+      letter-spacing: 0.5px;
+      margin: 20px 0 30px;
+    }
+    
+    span {
+      font-size: 12px;
+    }
+    
+    a {
+      color: #ffffff;
+      font-size: 14px;
+      text-decoration: none;
+      margin: 15px 0;
+    }
+    
+    button {
+      border-radius: 20px;
+      border: 1px solid rgb(28, 69, 98);
+      background-color: rgb(28, 69, 98);
+      color: #eeebeb;
+      font-size: 10px;
+      font-weight: bold;
+      width: 300px;
+      margin-top: 10px;
+      padding: 12px 45px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: transform 80ms ease-in;
+    }
+    
+    form {
+      background-color: rgba(255, 255, 255, 0.879);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 0 50px;
+      height: 100%;
+      border-radius: 10px;
+      border-color: white;
+      text-align: center;
+      border-radius: 30px;
+      color: black;
+    }
+    
+    input {
+      background-color: rgb(247, 241, 241);
+      border-radius: 15px;
+      padding: 12px 15px;
+      margin: 4px 0;
+      width: 100%;
+    }
+    #Session {
+    background-color: rgb(247, 241, 241);
+      color: black;
+      border-radius: 15px;
+      border: 2px solid;
+      padding: 12px 15px;
+      margin: 4px 0;
+      width: 100%;
+
+    }
+    
+    .container {
+      background-color: #ffffffd3;
+      border-radius: 30px;
+      border-color: rgb(7, 7, 7);
+      border: 2px solid;
+      box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+      position: relative;
+
+      overflow: hidden;
+      height: 100px;
+      width: 768px;
+      max-width: 100%;
+      min-height: 480px;
+    }
+    
+    .form-container {
+      position: absolute;
+      top: 0;
+      height: 100%;
+    }
+    
+    .log-in-container {
+      left: 0;
+      width: 50%;
+      z-index: 2;
+    }
+    
+    .log-out-container {
+      right: 0;
+      width: 50%;
+      z-index: 2;
+    }
+    
+    .overlay-container {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 50%;
+      height: 100%;
+      transition: left 0.5s ease;
+    }
+    
+    .overlay {
+      background:rgb(28, 69, 98);
+      border-radius: 28px;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: 0 0;
+      color: #101010;
+      position: relative;
+      left: -100%;
+      height: 100%;
+      width: 200%;
+    }
+    
+    .overlay-panel {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 0 40px;
+      text-align: center;
+      top: 0;
+      height: 100%;
+      width: 50%;
+    }
+    
+    .overlay-right {
+      right: 0;
+    }
+    
+    .overlay-left {
+      left:  0;
+    }
+    
+    .social-container {
+      margin: 50px 0;
+    }
+    
+    .social-container a {
+      border: 1px solid #070707;
+      color: black;
+      border-radius: 50%;
+      display:flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 0 5px;
+      height: 10px;
+      width: 10px;
+    }
+    
+    ::placeholder {
+      color: black;
+      opacity: 1; /* Firefox */
+    }
+    
+    #ht, #hdes {
+      color: white;
+    }
+    #college{
+        color: black;
+    }
+    
+    #reg {
+      cursor: pointer;
+    }
+    
+    .wave-container {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      overflow: hidden;
+      line-height: 0;
+    }
+    
+    .wave-container svg {
+      position: relative;
+      display: block;
+      width: 200%;
+      height: 600px;
+    }
+    
+    .wave-container .shape-fill {
+      fill: rgba(28, 69, 98, 0.901);
+    }
+    
+    </style>
+</head>
+<body>
+    
+    <div class="wave-container">
+        <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M0,0V46.29c47.92,22.39,100.88,35.68,153.81,42C279,99.56,351.8,86.31,400,68.67,512.14,29.05,645.47-8.5,748.71,3.72c117.24,13.87,246.66,61.54,339.81,98.06,58.83,23.69,106.48,36,111.48,37.67V0Z" class="shape-fill"></path>
+            
+        </svg>
+    </div>
+   
+    <div class="container" id="container">
+        <div class="form-container log-in-container" id="rightover">
+            <form action="">
+                <img src="/Users/hargundeepsingh/Downloads/cu.png" alt="" height="50px" width="80px">
+                <h1 id="mtt">Login - Student </h1>
+                <p id="college">Chitkara University Institute of Engineering & Technology</p>
+        
+                <span id="spant"></span>
+                <input type="email" id="email" placeholder="Username" required />
+                <input type="password" id="password" placeholder="Password" required />
+                <select name="Session" id="Session">
+                <option value="Session">Session</option>
+                <option value="July-december2023">July-December2023</option>
+                 <option value="January-June2024">January-June2024</option>
+                 <option value="July-december2024">July-December2024</option>
+                </select>
+                <span id="loginError" class="error"></span>
+                <button type="button" id="bl" name="login"></button>
+            </form>
+        </div>
+        <div class="overlay-container" id="overlayContainer">
+            <div class="overlay">
+                <div class="overlay-panel overlay-right">
+                    <h1 id="ht">Welcome to AcademiaPro</h1>
+                    
+                   
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://kit.fontawesome.com/67ae9b72c4.js" crossorigin="anonymous"></script>
+    <script>
+         const languages = {
+      en: {
+        mtt:"Login ~ Student ",
+        bl:"Log In",
+        ht:"Welcome to AcademiaPro",
+        hdes:"Chitkara University Institute of Engineering & Technology",
+        reg:"New User? Register"
+      },
+      hi: {
+        mtt:"लॉग इन",
+        bl:"लॉग इन",
+        spant:"या अपने खाते का उपयोग करें",
+        ht:"म्यूजिकओ में आपका स्वागत है",
+        hdes:"संगीत दुनिया को बदल सकता है क्योंकि यह लोगों को बदल सकता है।",
+        reg:"नए उपयोगकर्ता? पंजीकरण करवाना"
+      }
+    };
+    
+    let currentLanguage = "en";
+    
+    function updateContent() {
+      document.getElementById("mtt").textContent = languages[currentLanguage].mtt;
+      document.getElementById("spant").textContent = languages[currentLanguage].spant;
+      document.getElementById("bl").textContent = languages[currentLanguage].bl;
+      document.getElementById("ht").textContent = languages[currentLanguage].ht;
+      document.getElementById("hdes").textContent = languages[currentLanguage].hdes;
+      document.getElementById("reg").textContent = languages[currentLanguage].reg;
+    }
+    
+    function toggleLanguage() {
+      currentLanguage = (currentLanguage === "en") ? "hi" : "en";
+      updateContent();
+    }
+    
+    updateContent();
+    
+    document.getElementById("languageButton").addEventListener("click", toggleLanguage);
+    </script>
+</body>
+</html>

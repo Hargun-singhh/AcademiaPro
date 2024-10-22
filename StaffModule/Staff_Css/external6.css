@@ -1,0 +1,113 @@
+
+/* General Styles */
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+body {
+font-family: Arial, sans-serif;
+background-color: #e9f7ef;
+margin: 0;
+padding: 0;
+}
+
+/* Navigation Bar */
+nav {
+background-color: #324E30;
+padding: 1rem;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+.logo {
+color: #fff;
+font-size: 1.5rem;
+}
+
+.nav-links {
+list-style: none;
+display: flex;
+}
+
+.nav-links li {
+margin-left: 1.5rem;
+}
+
+.nav-links a {
+color: white;
+text-decoration: none;
+}
+
+/* Responsive Design */
+@media (max-width: 770px) {
+.nav-links {
+flex-direction: column;
+margin: 0;
+}
+
+.nav-links li {
+margin: 1rem 0;
+}
+}
+
+/* Main Content */
+.container {
+margin: 2rem auto;
+width: 90%;
+background-color: white;
+padding: 1.5rem;
+border-radius: 10px;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+display: flex;
+justify-content: space-between;
+margin-bottom: 2rem;
+}
+
+label {
+margin-right: 1rem;
+}
+
+table {
+width: 100%;
+border-collapse: collapse;
+margin-bottom: 2rem;
+}
+
+table, th, td {
+border: 1px solid #ddd;
+}
+
+th, td {
+padding: 1rem;
+text-align: left;
+}
+
+.submit-btn {
+padding: 1rem 1rem;
+background-color: #4CAF50;
+color: white;
+border: none;
+cursor: pointer;
+border-radius: 5px;
+float: none;
+}
+
+.submit-btn:hover {
+background-color: #0d130c;
+}
+.footer{
+
+height: 20px;
+width: 100%;
+background-color: #324E30;
+position: fixed;
+left: 0;
+bottom: 0;
+}
+

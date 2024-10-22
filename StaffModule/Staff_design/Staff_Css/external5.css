@@ -1,0 +1,100 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+/* Body styling */
+body {
+    background-color: #e9f7ef; /* Consistent background color for the entire page */
+    min-height: 100vh; /* Ensure it covers full height */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+.header {
+    background-color: #324E30;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    font-weight: bold;
+}
+
+/* Main container */
+.container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columns */
+    gap: 40px;
+    padding: 40px 180px;
+    flex-grow: 1; /* Pushes the footer to the bottom if content is small */
+}
+
+/* Card styling */
+.card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px dashed #bcbcbc;
+    padding: 15px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Leave details */
+.details {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+/* Link inside card */
+.details a {
+    color: #1e90ff;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s;
+}
+
+.details a:hover {
+    color: #104e8b;
+    text-decoration: underline;
+}
+
+/* Status button */
+.status-btn {
+    background-color: #fbc02d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer */
+.footer {
+    background-color: #324E30;
+    height: 50px;
+    width: 100%;
+    text-align: center;
+    position: relative; /* Footer stays below content */
+    bottom: 0;
+    left: 0;
+}
+
+/* Responsive behavior */
+@media (max-width: 768px) {
+    .container {
+        grid-template-columns: 1fr; /* Stack cards vertically */
+        padding: 20px;
+    }
+}
+
+ 
+  

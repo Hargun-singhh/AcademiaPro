@@ -5,116 +5,235 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gatepass Apply</title>
   <style>
-    body {
-      font-family: sans-serif;
+    * {
       margin: 0;
       padding: 0;
-      background-color: #e9ecef;
+      box-sizing: border-box;
     }
 
-    .container {
-      width: 90%;
-      max-width: 600px;
-      margin: 20px auto;
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f7f8fa;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav {
+      background-color: #254563;
+      color: white;
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    nav .logo {
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    nav ul li {
+      display: inline;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    nav ul li a:hover {
+      text-decoration: underline;
+    }
+
+    .form-wrapper {
+      width: 100%;
+      padding: 50px;
       background-color: #fff;
-      border-radius: 5px;
-      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     }
 
     .header {
-      background-color: #29527a;
+      background-color: #4CAF50;
+      padding: 30px;
       text-align: center;
       color: #fff;
-      padding: 10px 15px;
-      border-top-left-radius: 5px;
-      border-top-right-radius: 5px;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
     }
 
     .header h2 {
       margin: 0;
-      font-size: 1.2em;
+      font-size: 2em;
+      font-weight: 600;
     }
 
     .content {
-      padding: 20px;
-      border: 1px solid #ced4da;
+      padding: 40px;
     }
 
     .form-group {
-      margin-bottom: 15px;
+      margin-bottom: 25px;
     }
 
     .form-group label {
+      font-weight: 500;
+      font-size: 1.2em;
+      color: #333;
+      margin-bottom: 8px;
       display: block;
-      margin-bottom: 5px;
     }
 
     .form-group input[type="text"],
-    .form-group input[type="date"],
+    .form-group input[type="time"],
     .form-group textarea {
       width: 100%;
-      padding: 8px;
-      border: 1px solid #ced4da;
-      border-radius: 4px;
-      box-sizing: border-box;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 1.1em;
+      transition: border-color 0.3s;
+      outline: none;
+      background-color: #f7f7f7;
     }
 
     .form-group textarea {
-      height: 100px;
+      height: 150px;
+      resize: none;
     }
 
-    .footer {
-      background-color: #29527a;
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: #254563;
+    }
+
+    .button {
+      text-align: center;
+    }
+
+    .button button {
+      background-color: #254563;
       color: #fff;
-      padding: 10px 15px;
-      border-bottom-left-radius: 5px;
-      border-bottom-right-radius: 5px;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 5px;
+      font-size: 1.2em;
+      cursor: pointer;
+      transition: background-color 0.3s;
     }
 
-    .button{
-        text-align: center;
+    .button button:hover {
+      background-color: #254563;
     }
+
+    
 
     /* Responsive Styles */
-    @media screen and (max-width: 500px) {
-      .container {
-        width: 95%;
+    @media screen and (max-width: 768px) {
+      nav ul {
+        display: none;
+      }
+
+      nav .hamburger {
+        display: block;
+        cursor: pointer;
+      }
+
+      .hamburger span {
+        display: block;
+        width: 25px;
+        height: 3px;
+        background-color: white;
+        margin: 5px 0;
+      }
+
+      .header h2 {
+        font-size: 1.8em;
       }
     }
+
+    @media screen and (max-width: 600px) {
+      .form-wrapper {
+        width: 100%;
+        margin: 20px;
+      }
+
+      .header h2 {
+        font-size: 1.6em;
+      }
+    }
+
+    @media screen and (max-width: 400px) {
+      .header h2 {
+        font-size: 1.4em;
+      }
+    }
+    .footer{
+     
+     height: 20px;
+     width: 100%;
+     background-color: #254563;
+     position: fixed;
+     left: 0;
+     bottom: 0;
+   }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="header">
-      <h2>Gatepass Apply</h2>
+  <!-- Navigation Bar -->
+  <nav>
+    <div class="logo">Apply Gatepass</div>
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
     </div>
+    <ul id="nav-menu">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Attendance</a></li>
+      <li><a href="#">Profile</a></li>
+      <li><a href="#">Logout</a></li>
+    </ul>
+  </nav>
+
+  <div class="form-wrapper">
     <div class="content">
       <form>
         <div class="form-group">
-          <label for="leave-type">Leave Type</label>
-          <input type="text" id="leave-type" value="Medical Leave"> 
+          <label for="roll-number">Roll Number</label>
+          <input type="text" id="roll-number" placeholder="Enter Roll Number" required>
         </div>
         <div class="form-group">
-          <label for="leave-from">Leave From</label>
-          <input type="date" id="leave-from" value="2024-07-26"> 
-        </div>
-        <div class="form-group">
-          <label for="leave-to">Leave To</label>
-          <input type="date" id="leave-to" value="2024-07-26"> 
+          <label for="time">Time</label>
+          <input type="time" id="time" required>
         </div>
         <div class="form-group">
           <label for="reason">Reason</label>
-          <textarea id="reason"></textarea>
+          <textarea id="reason" placeholder="Enter reason for leave" required></textarea>
         </div>
-        
-       <div class="button"> 
-        <button type="submit">Submit</button> 
+        <div class="button">
+          <button type="submit">Submit Gatepass</button>
         </div>
       </form>
     </div>
-    <div class="footer">
-      &nbsp;
-    </div>
   </div>
+
+  <footer class="footer">
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      const navMenu = document.getElementById('nav-menu');
+      navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
+    }
+  </script>
 </body>
 </html>

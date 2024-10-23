@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Improved Homepage</title>
+
+    <!-- Google Fonts and Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            background-color: #c9f4c5;
+        }
+
+        /* Top Navigation */
+        .top-nav {
+            background-color: #324E30;
+            color: white;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Hamburger Menu for smaller screens */
+        .hamburger {
+            display: none;
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            background-color: #324E30;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            margin: 5px 0;
+            background-color: white;
+            transition: 0.3s;
+        }
+
+        .hamburger.open span:nth-child(1) {
+            transform: rotate(45deg) translateY(7px);
+        }
+
+        .hamburger.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.open span:nth-child(3) {
+            transform: rotate(-45deg) translateY(-7px);
+        }
+
+        /* Container for Sidebar and Content */
+        .container {
+            display: flex;
+            flex-grow: 1;
+            overflow: hidden;
+            background-color: #d6f0d2f4;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background: rgba(144, 144, 144, 0.9);
+            padding-top: 20px;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+            transition: width 0.3s;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .sidebar li {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            font-size: 1.1rem;
+            color: black;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .sidebar li:hover {
+            background-color: #79cb67;
+            color: #f9f9f9;
+        }
+
+        .sidebar li span::before {
+            content: '• ';
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        /* Collapsible Sidebar */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 60px;
+                transform: translateX(-250px);
+            }
+
+            .sidebar li span {
+                display: none;
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .content {
+                padding-top: 60px;
+            }
+        }
+
+        /* Main Content Area */
+        .content {
+            width: 100%;
+            padding: 100px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            transition: padding 0.3s;
+        }
+
+        /* Individual Tiles */
+        .tile {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            height: 200px;
+            cursor: pointer;
+        }
+
+        .tile i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #324E30;
+        }
+
+        .tile:hover {
+            background-color: #f5f5f5;
+            transform: translateY(-10px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Responsive Grid for smaller screens */
+        @media (max-width: 1024px) {
+            .content {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                grid-template-columns: repeat(2, 1fr);
+                padding: 20px;
+            }
+
+            .tile {
+                height: 150px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+
+            .tile {
+                height: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <header>
+        <nav class="top-nav">
+            <span>Welcome To AcademiaPro - Academic Management System</span>
+        </nav>
+    </header>
+
+    <!-- Hamburger Menu -->
+    <button class="hamburger" onclick="toggleSidebar()">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Left Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <ul>
+                <li><span>Assignments</span></li>
+                <li><span>Marks</span></li>
+                <li><span>Resources</span></li>
+                <li><span>Attendance</span></li>
+                <li><span>Time Table</span></li>
+                <li><span>Logout</span></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="content">
+            <div class="tile" id="attendance" onclick="navigateTo('attendance_upload.html')">
+                <i class="fas fa-calendar-check"></i>
+                <span>Attendance</span>
+            </div>
+            <div class="tile" id="time-table" onclick="navigateTo('timetable_uploader.html')">
+                <i class="fas fa-clock"></i>
+                <span>Time Table</span>
+            </div>
+            <div class="tile" id="marks" onclick="navigateTo('Marks_Uploader.html')">
+                <i class="fas fa-chart-line"></i>
+                <span>Marks</span>
+            </div>
+            
+            <div class="tile" id="assignments" onclick="navigateTo('leave_history.html')">
+                <i class="fas fa-tasks"></i>
+                <span>Leave Approve</span>
+            </div>
+            <div class="tile" id="resources" onclick="navigateTo('Resource_uploader.html')">
+                <i class="fas fa-folder-open"></i>
+                <span>Resources</span>
+            </div>
+            <div class="tile" id="teacher-info" onclick="navigateTo('teacher-info.html')">
+                <i class="fas fa-chalkboard-teacher"></i>
+                <span>Self Information</span>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            document.getElementById("sidebar").classList.toggle("open");
+            document.querySelector('.hamburger').classList.toggle('open');
+        }
+
+        function navigateTo(page) {
+            window.location.href = page;
+        }
+    </script>
+</body>
+</html>

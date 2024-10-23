@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Improved Homepage</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            background-color: #f4f7fa;
+        }
+
+        /* Top Navigation */
+        .top-nav {
+            background-color: #254563;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Container for Sidebar and Content */
+        .container {
+            display: flex;
+            flex-grow: 1;
+            overflow: hidden;
+            background-color: #dae8f5;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: #d0d0d0;
+            color: rgb(2, 2, 2);
+            padding-top: 20px;
+            transition: width 0.3s;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .sidebar li {
+            padding: 15px 20px;
+            text-align: left;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .sidebar li:hover {
+            background-color: #254563;
+            color: #f9f9f9;
+        }
+
+        /* Collapsible Sidebar */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 60px;
+            }
+
+            .sidebar li span {
+                display: none;
+            }
+        }
+
+        /* Hamburger Menu for smaller screens */
+        .hamburger {
+            display: none;
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            background-color: #254563;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            margin: 5px 0;
+            background-color: white;
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+
+            .sidebar {
+                position: fixed;
+                height: 100%;
+                transform: translateX(-250px);
+                transition: transform 0.3s ease;
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .content {
+                padding-top: 60px;
+            }
+        }
+
+        /* Main Content Area */
+        .content {
+            width: 100%;
+            padding: 100px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            transition: padding 0.3s;
+        }
+
+
+        /* Individual Tiles */
+        .tile {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            height: 200px;
+            cursor: pointer;
+        }
+
+
+        .tile:hover {
+            background-color: #dce1e8;
+            transform: translateY(-5px);
+        }
+
+        /* Icon Styling */
+        .tile i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color:#254563 ;
+        }
+
+        /* Responsive Grid for smaller screens */
+        @media (max-width: 1024px) {
+            .content {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width:  768px) {
+            .content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <header>
+        <nav class="top-nav">
+            <span>Welcome To AcademiaPro - Academic Management System</span>
+        </nav>
+    </header>
+
+    <!-- Hamburger Menu -->
+    <button class="hamburger" onclick="toggleSidebar()">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Left Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <ul>
+                <li><span>Self Information</span></li>
+                <li><span>Assignments</span></li>
+                <li><span>Marks</span></li>
+                <li><span>Resources</span></li>
+                <li><span>Attendance</span></li>
+                <li><span>Clubs</span></li>
+                <li><span>Events</span></li>
+                <li><span>Fee and Fine</span></li>
+                <li><span>Time Table</span></li>
+                <li><span>Logout</span></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="content">
+            <div class="tile" id="attendance">
+                <i class="fas fa-calendar-check"></i>
+                <span>Attendance</span>
+            </div>
+            <div class="tile" id="time-table">
+                <i class="fas fa-clock"></i>
+                <span>Time Table</span>
+            </div>
+            <div class="tile" id="marks">
+                <i class="fas fa-chart-line"></i>
+                <span>Marks</span>
+            </div>
+            <div class="tile" id="subjects">
+                <i class="fas fa-book"></i>
+                <span>Subjects</span>
+            </div>
+            <div class="tile" id="selfinformation">
+                <i class="fas fa-user"></i>
+                <span>Self Information</span>
+            </div>
+            <div class="tile" id="assignments">
+                <i class="fas fa-tasks"></i>
+                <span>Assignments</span>
+            </div>
+            <div class="tile" id="resources">
+                <i class="fas fa-folder-open"></i>
+                <span>Resources</span>
+            </div>
+            <div class="tile" id="teacher-info">
+                <i class="fas fa-chalkboard-teacher"></i>
+                <span>Teacher Information</span>
+            </div>
+        </main>
+
+
+    <script>
+        function toggleSidebar() {
+            document.getElementById("sidebar").classList.toggle("open");
+        }
+    </script>
+</body>
+</html>

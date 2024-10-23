@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apply DL/ML</title>
+    <style>
+        :root {
+            --primary-color: #254563;
+            --secondary-color: #254563;
+            --background-color: #dae8f5;
+            --text-color: #030303;
+            --light-gray: #d0d0d0;
+            --border-color: #bdc3c7;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        nav {
+            background-color: var(--primary-color);
+            padding: 10px;
+            text-align: center;
+            color: white;
+            height: 50px;
+        }
+
+        .main-container {
+            margin:20px;
+            display: flex;
+            flex-grow: 1;
+        }
+
+        .left-navbar {
+            background-color: var(--light-gray);
+            padding: 10px;
+            width: 250px; 
+            height: 100vh;
+            color: var(--text-color);
+        }
+
+        .left-navbar ul {
+            list-style: none;
+        }
+
+        .left-navbar ul li {
+            margin: 10px 0;
+        }
+
+        .left-navbar ul li a {
+            color: var(--text-color);
+            text-decoration: none;
+            padding: 10px;
+            display: block;
+        }
+
+        .left-navbar ul li a:hover {
+            background-color: var(--primary-color);
+            border-radius: 5px;
+            color: white;
+        }
+
+        .form-container {
+            width: 70%;
+            background-color: white;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            display: flex; 
+            align-items: center; 
+        }
+
+        .form-group label {
+            margin-right: 10px; 
+            color: var(--secondary-color);
+            flex: 0 0 150px; 
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 150px; 
+            padding: 5px; 
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            background-color: white;
+        }
+
+        button {
+            width: 20%;
+            padding: 10px;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: var(--primary-color);
+        }
+
+        /* Popup Styles */
+        .popup {
+            display: none;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(137, 137, 137, 0.5);
+            z-index: 1000;
+            height:200px;
+            width:450px;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .form-container {
+                width: 90%;
+            }
+            .left-navbar {
+                width: 180px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .form-container {
+                width: 100%;
+                padding: 10px;
+            }
+            .left-navbar {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        APPLY DL/ML
+    </nav>
+
+    <main class="main-container">
+        <nav class="left-navbar">
+            <ul>
+                <li><a href="#">Fee / Fine</a></li>
+                <li><a href="#">DL ML Apply</a></li>
+                <li><a href="#">Assignment Upload Page</a></li>
+                <li><a href="#">Report Card </a></li>
+                <li><a href="#">Examination Progress </a></li>
+                <li><a href="#">Time Table</a></li>
+                <li><a href="#">Resource View</a></li>
+                <li><a href="#">Teacher Info</a></li>
+            </ul>
+        </nav>
+
+        <div class="form-container">
+            <form>
+                <div class="form-group">
+                    <label for="leave-type">Leave Type</label>
+                    <select id="leave-type" required>
+                        <option value="">Select Leave Type</option>
+                        <option value="DL">DL</option>
+                        <option value="ML">ML</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <select id="category" required>
+                        <option value="">Select Category</option>
+                        <option value="ACM">ACM</option>
+                        <option value="CodingNinja">Coding Ninja</option>
+                        <option value="IEE">IEE</option>
+                        <option value="Devlearn">Devlearn</option>
+                        <option value="GDG">GDG</option>
+                </div>
+
+                <div class="form-group">
+                    <label for="event">Event</label>
+                    <input type="text" id="event" placeholder="Enter Event Title" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="leave-start">Leave Start Date</label>
+                    <input type="date" id="leave-start" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="leave-end">Leave End Date</label>
+                    <input type="date" id="leave-end" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="slot">Slot</label>
+                    <select id="slot" required>
+                        <option value="">Select Slot</option>
+                        <option value="1">Slot 1</option>
+                        <option value="2">Slot 2</option>
+                        <option value="3">Slot 3</option>
+                    </select>
+                </div>
+
+                <button type="submit" id="apply-leave">Apply Leave</button>
+            </form>
+        </div>
+
+        <!-- Popup HTML -->
+        <div class="popup success-popup">
+            <h2>Leave Applied Successfully!</h2>
+            <button id="close-popup">Close</button>
+        </div>
+
+        <div class="popup error-popup">
+            <h2>Please fill out all the required fields!</h2>
+            <button id="close-error-popup">Close</button>
+        </div>
+
+        <div class="overlay"></div>
+
+        <script>
+            const applyLeaveButton = document.getElementById('apply-leave');
+            const successPopup = document.querySelector('.success-popup');
+            const errorPopup = document.querySelector('.error-popup');
+            const overlay = document.querySelector('.overlay');
+            const closeSuccessPopupButton = document.getElementById('close-popup');
+            const closeErrorPopupButton = document.getElementById('close-error-popup');
+
+            function displayPopup(popup) {
+                popup.style.display = 'block';
+                overlay.style.display = 'block';
+            }
+
+            function closePopup(popup) {
+                popup.style.display = 'none';
+                overlay.style.display = 'none';
+            }
+
+            applyLeaveButton.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                const leaveType = document.getElementById('leave-type').value;
+                const category = document.getElementById('category').value;
+                const event = document.getElementById('event').value;
+                const leaveStart = document.getElementById('leave-start').value;
+                const leaveEnd = document.getElementById('leave-end').value;
+ const slot = document.getElementById('slot').value;
+
+                if (leaveType && category && event && leaveStart && leaveEnd && slot) {
+                    displayPopup(successPopup);
+
+                    // Clear form inputs
+                    document.querySelectorAll('input, select').forEach((input) => {
+                        input.value = '';
+                    });
+                } else {
+                    displayPopup(errorPopup);
+                }
+            });
+
+            closeSuccessPopupButton.addEventListener('click', () => {
+                closePopup(successPopup);
+            });
+
+            closeErrorPopupButton.addEventListener('click', () => {
+                closePopup(errorPopup);
+            });
+        </script>
+    </main>
+</body>
+</html>

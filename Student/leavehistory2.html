@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DL/ML Approval</title>
+    <style>
+         .footer{
+     
+     height: 20px;
+     width: 100%;
+     background-color: #254563;
+     position: fixed;
+     left: 0;
+     bottom: 0;
+    }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background:  #dae8f5;
+            margin: 0;
+            padding: 0;
+            
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #254563;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            
+        }
+
+        .navbar .logo {
+            color: #ffffff;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+        
+    
+        }
+
+        .navbar .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .navbar .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+
+        .navbar .nav-links a:hover {
+            color: #66bb6a;
+        }
+
+        .navbar .menu-icon {
+            display: none;
+            cursor: pointer;
+            color: #ffffff;
+            font-size: 24px;
+        }
+
+        /* Main container */
+        .container {
+            width: 80%;
+            max-width: 800px;
+            background: #ffffff;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        .header {
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #2f4f4f;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .content div {
+            display: flex;
+            justify-content: space-between;
+            background: #f9f9f9;
+            padding: 12px 16px;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+
+        .content div:hover {
+            background: #e3f2fd;
+        }
+
+        .content div span {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .status {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .status .approved {
+            background: linear-gradient(45deg, #4caf50, #66bb6a);
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 30px;
+            display: inline-block;
+            font-size: 16px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .status .approved:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+            }
+
+            .navbar .nav-links {
+                display: none;
+                flex-direction: column;
+                background: #2f4f4f;
+                position: absolute;
+                top: 60px;
+                right: 0;
+                width: 200px;
+                padding: 10px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            }
+
+            .navbar.active .nav-links {
+                display: flex;
+            }
+
+            .navbar .menu-icon {
+                display: block;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">DL/ML APPROVAL</div>
+        <div class="nav-links">
+            <a href="#">Home</a>
+            <a href="#">Services</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+        </div>
+        <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+    </div>
+
+    <div class="container">
+        <div class="header">DL/ML APPROVAL</div>
+        <div class="content">
+            <div>
+                <span>Leave Type</span>
+                <span>Duty Leave</span>
+            </div>
+            <div>
+                <span>Category</span>
+                <span>National Service Scheme (NSS)</span>
+            </div>
+            <div>
+                <span>Event Title</span>
+                <span>Mental Health Awareness</span>
+            </div>
+            <div>
+                <span>Leave From</span>
+                <span>26-07-2024</span>
+            </div>
+            <div>
+                <span>Leave To</span>
+                <span>26-07-2024</span>
+            </div>
+            <div>
+                <span>Lectures</span>
+                <span>1, 2, 3, 4</span>
+            </div>
+        </div>
+        <div class="status">
+            <div class="approved">Approved</div>
+        </div>
+    </div>
+<footer class="footer"></footer>
+    <script>
+        function toggleMenu() {
+            const navbar = document.querySelector('.navbar');
+            navbar.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

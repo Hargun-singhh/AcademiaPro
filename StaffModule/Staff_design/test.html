@@ -6,141 +6,140 @@
     <title>Student Leave History</title>
     <style>
         /* Reset some default styles */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Poppins', sans-serif;
-}
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
 
-body {
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #2d3436, #636e72);
-    color: #ecf0f1;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #2d3436, #636e72);
+            color: #ecf0f1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
 
-.header {
-    background: #00cec9;
-    padding: 1.5rem;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
+        .header {
+            background: #00cec9;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
 
-h1 {
-    font-size: 2.5rem;
-    letter-spacing: 3px;
-    color: #2d3436;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-}
+        h1 {
+            font-size: 2.5rem;
+            letter-spacing: 3px;
+            color: #2d3436;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
 
-.container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 2rem;
-    margin-top: 2rem;
-}
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
 
-.card {
-    background: rgba(255, 255, 255, 0.1);
-    width: 100%;
-    max-width: 700px;
-    margin: 1.5rem;
-    padding: 2rem;
-    border-radius: 15px;
-    backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease, background 0.3s ease;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            width: 100%;
+            max-width: 700px;
+            margin: 1.5rem;
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, background 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-.card:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: translateY(-10px);
-}
+        .card:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-10px);
+        }
 
-.details h2 {
-    font-size: 1.5rem;
-    color: #ecf0f1;
-}
+        .details h2 {
+            font-size: 1.5rem;
+            color: #ecf0f1;
+        }
 
-.details p {
-    font-size: 1rem;
-    margin: 0.5rem 0;
-    color: #b2bec3;
-}
+        .details p {
+            font-size: 1rem;
+            margin: 0.5rem 0;
+            color: #b2bec3;
+        }
 
-.details a {
-    font-size: 1rem;
-    color: #00cec9;
-    text-decoration: none;
-}
+        .details a {
+            font-size: 1rem;
+            color: #00cec9;
+            text-decoration: none;
+        }
 
-.status {
-    margin-top: 1rem;
-    font-weight: bold;
-}
+        .status {
+            margin-top: 1rem;
+            font-weight: bold;
+        }
 
-.status-text {
-    color: #ff7675;
-}
+        .status-text {
+            color: #ff7675;
+        }
 
-.actions {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
+        .actions {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
 
-.approve-btn, .reject-btn {
-    padding: 0.75rem 1.5rem;
-    border: none;
-    cursor: pointer;
-    border-radius: 50px;
-    font-size: 1rem;
-    color: #2d3436;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
+        .approve-btn, .reject-btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            cursor: pointer;
+            border-radius: 50px;
+            font-size: 1rem;
+            color: #2d3436;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
 
-.approve-btn {
-    background-color: #55efc4;
-}
+        .approve-btn {
+            background-color: #55efc4;
+        }
 
-.approve-btn:hover {
-    background-color: #00b894;
-    transform: translateY(-2px);
-}
+        .approve-btn:hover {
+            background-color: #00b894;
+            transform: translateY(-2px);
+        }
 
-.reject-btn {
-    background-color: #ff7675;
-}
+        .reject-btn {
+            background-color: #ff7675;
+        }
 
-.reject-btn:hover {
-    background-color: #d63031;
-    transform: translateY(-2px);
-}
+        .reject-btn:hover {
+            background-color: #d63031;
+            transform: translateY(-2px);
+        }
 
-.footer {
-    background-color: #00cec9;
-    color: #2d3436;
-    text-align: center;
-    padding: 1rem;
-    position: relative;
-    width: 100%;
-}
-
+        .footer {
+            background-color: #00cec9;
+            color: #2d3436;
+            text-align: center;
+            padding: 1rem;
+            position: relative;
+            width: 100%;
+        }
     </style>
 
     <!-- Firebase Configuration -->
     <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore-compat.js"></script>
 
     <script>
         // Firebase configuration
@@ -164,24 +163,42 @@ h1 {
             studentsContainer.innerHTML = ''; // Clear existing content
 
             try {
-                const querySnapshot = await db.collection('leaveRecords').get(); // Adjust 'leaveRecords' to your collection name
-                querySnapshot.forEach((doc) => {
+                const leaveRecordsSnapshot = await db.collection('leaveRecords').get();
+
+                leaveRecordsSnapshot.forEach((doc) => {
                     const studentData = doc.data();
-                    
+                    const rollNumber = doc.id; // Use roll number as document ID
+
+                    // Use default values if data is undefined
+                    const name = studentData.name || 'Unknown Student';
+                    const status = studentData.status || 'Not specified';
+                    const leaveEntries = studentData.leaveEntries || {};
+
                     // Check if the status is still pending
-                    const buttonsHtml = studentData.status === 'Pending' ? `
-                        <button class="approve-btn" onclick="updateStatus('${doc.id}', 'Approved')">Approve</button>
-                        <button class="reject-btn" onclick="updateStatus('${doc.id}', 'Rejected')">Reject</button>
+                    const buttonsHtml = status === 'Pending' ? `
+                        <button class="approve-btn" onclick="updateStatus('${rollNumber}', 'Approved')">Approve</button>
+                        <button class="reject-btn" onclick="updateStatus('${rollNumber}', 'Rejected')">Reject</button>
                     ` : '';
 
-                    // Create a new card for each student
+                    // Create a list of leave entries
+                    const leaveEntriesList = Object.entries(leaveEntries).map(([key, entry]) => {
+                        // Assuming each entry has properties: reason, startDate, endDate
+                        const reason = entry.reason || 'No reason provided';
+                        const startDate = entry.startDate || 'Unknown start date';
+                        const endDate = entry.endDate || 'Unknown end date';
+                        return `<li>${reason} from ${startDate} to ${endDate}</li>`;
+                    }).join('');
+
                     const card = `
                         <div class="card">
                             <div class="details">
-                                <h2>${studentData.name}</h2>
-                                <p>Roll No: <span>${studentData.rollNumber}</span></p>
-                                <a href="#" class="view-details">View Leave Details</a>
-                                <p class="status">Status: <span class="status-text">${studentData.status}</span></p>
+                                <h2>${name}</h2>
+                                <p>Roll No: <span>${rollNumber}</span></p>
+                                <p class="status">Status: <span class="status-text">${status}</span></p>
+                                <p>Leave Entries:</p>
+                                <ul>
+                                    ${leaveEntriesList.length > 0 ? leaveEntriesList : '<li>No leave entries found.</li>'}
+                                </ul>
                             </div>
                             <div class="actions">
                                 ${buttonsHtml}
@@ -196,9 +213,9 @@ h1 {
         }
 
         // Update leave status in Firestore and refresh the UI
-        async function updateStatus(docId, status) {
+        async function updateStatus(rollNumber, status) {
             try {
-                await db.collection('leaveRecords').doc(docId).update({
+                await db.collection('leaveRecords').doc(rollNumber).update({
                     status: status
                 });
                 alert('Status updated to: ' + status);

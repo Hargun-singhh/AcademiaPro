@@ -3,74 +3,278 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Leave History</title>
-    <link rel="stylesheet" href="Staff_Css/external5.css">
+    <title>Leave Applications</title>
+    <style>
+        .footer{
 
-    
+height: 20px;
+width: 100%;
+background-color: #324E30;
+position: fixed;
+left: 0;
+bottom: 0;
+}
+        :root {
+            --primary-color: #324E30;
+            --secondary-color: #324E30;
+            --background-color: #f4f4f9;
+            --text-color: #333;
+            --light-gray: #eaeaea;
+            --border-color: #ccc;
+            --success-color: #28a745; /* Green */
+            --error-color: #dc3545; /* Red */
+            --hover-color: #b1e2ae; /* Blue */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: var(--background-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        nav {
+            background-color: #324E30;
+            padding: 15px;
+            text-align: center;
+            color: white;
+            font-size: 1.5em;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .main-container {
+            margin: 20px;
+            flex-grow: 1;
+        }
+
+        .form-container {
+            background-color: white;
+            margin: 20px auto;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .form-container:hover {
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        select, button {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            font-size: 1em;
+            margin-bottom: 15px;
+            transition: background-color 0.3s;
+        }
+
+        select {
+            background-color: white;
+            color: var(--text-color);
+        }
+
+        button {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: var(--hover-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+
+        th {
+            background-color: var(--light-gray);
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .approve {
+            background-color: var(--success-color);
+        }
+
+        .reject {
+            background-color: var(--error-color);
+        }
+
+        .approve:hover {
+            background-color: darkgreen;
+        }
+
+        .reject:hover {
+            background-color: darkred;
+        }
+
+        .status {
+            margin: 10px 0;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .form-container {
+                padding: 20px;
+            }
+
+            button {
+                padding: 8px;
+            }
+
+            th, td {
+                padding: 10px;
+            }
+        }
+    </style>
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore-compat.js"></script>
 </head>
 <body>
-    <header class="header">
-        <h1>STUDENT LEAVE HISTORY</h1>
-    </header>
-
-    <main class="container">
-        <div class="card">
-            <div class="details">
-                <strong>Noor Gumber</strong>
-                <p>2310990840</p>
-                <a href="#">Click here to view details</a>
-            </div>
-            <button class="status-btn">Pending</button>
+    <nav>LEAVE APPLICATIONS</nav>
+    <main class="main-container">
+        <div class="form-container">
+            <h1>Manage Leave Applications</h1>
+            <h2>Leave Applications by Category</h2>
+            <select id="category-select">
+                <option value="">Select Category</option>
+                <option value="ACM">ACM</option>
+                <option value="CodingNinja">Coding Ninja</option>
+                <option value="IEE">IEE</option>
+                <option value="Devlearn">Devlearn</option>
+                <option value="GDG">GDG</option>
+                <option value="Debsoc">Debsoc</option>
+            </select>
+            <button id="fetch-applications">Fetch Applications</button>
+            <div id="applications-container"></div>
         </div>
-
-        <div class="card">
-            <div class="details">
-                <strong>Noor Gumber</strong>
-                <p>2310990840</p>
-                <a href="#">Click here to view details</a>
-            </div>
-            <button class="status-btn">Pending</button>
-        </div>
-
-        <div class="card">
-            <div class="details">
-                <strong>Noor Gumber</strong>
-                <p>2310990840</p>
-                <a href="#">Click here to view details</a>
-            </div>
-            <button class="status-btn">Pending</button>
-        </div>
-
-        <div class="card">
-            <div class="details">
-                <strong>Noor Gumber</strong>
-                <p>2310990840</p>
-                <a href="#">Click here to view details</a>
-            </div>
-            <button class="status-btn">Pending</button>
-        </div>
-
-        <div class="card">
-            <div class="details">
-                <strong>Noor Gumber</strong>
-                <p>2310990840</p>
-                <a href="#">Click here to view details</a>
-            </div>
-            <button class="status-btn">Pending</button>
-        </div>
-
-        <div class="card">
-            <div class="details">
-                <strong>Noor Gumber</strong>
-                <p>2310990840</p>
-                <a href="#">Click here to view details</a>
-            </div>
-            <button class="status-btn">Pending</button>
-        </div>
+        <footer class="footer"></footer>
     </main>
 
-    <footer class="footer"></footer>
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAK8de7_sRE5DVRhIQ6SPpAgqSyqcFTIIM",
+            authDomain: "academiapro-bd0a6.firebaseapp.com",
+            projectId: "academiapro-bd0a6",
+            storageBucket: "academiapro-bd0a6.appspot.com",
+            messagingSenderId: "529677900658",
+            appId: "1:529677900658:web:ad5654b1bb976c935d5beb",
+            measurementId: "G-BEM8XGW7QC"
+        };
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
 
-  
+        // Fetch Applications
+        document.getElementById('fetch-applications').addEventListener('click', async () => {
+            const category = document.getElementById('category-select').value;
+            if (category) {
+                const applicationsContainer = document.getElementById('applications-container');
+                applicationsContainer.innerHTML = ''; // Clear previous results
+
+                const snapshot = await db.collection('leaves').doc(category).collection('leaveEntries').get();
+                if (snapshot.empty) {
+                    applicationsContainer.innerHTML = '<p>No applications found.</p>';
+                    return;
+                }
+
+                const table = document.createElement('table');
+                table.innerHTML = `
+                    <tr>
+                        <th>Roll Number</th>
+                        <th>Leave Type</th>
+                        <th>Event</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Slot</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                `;
+
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${data.rollNumber}</td>
+                        <td>${data.leaveType}</td>
+                        <td>${data.event}</td>
+                        <td>${data.leaveStart}</td>
+                        <td>${data.leaveEnd}</td>
+                        <td>${data.slot}</td>
+                        <td class="status">${data.status}</td>
+                        <td>
+                            ${data.status === 'Pending' ? `
+                                <button class="approve" onclick="updateStatus('${category}', '${doc.id}', 'Approved')">Approve</button>
+                                <button class="reject" onclick="updateStatus('${category}', '${doc.id}', 'Rejected')">Reject</button>
+                            ` : ''}
+                        </td>
+                    `;
+                    table.appendChild(row);
+                });
+
+                applicationsContainer.appendChild(table);
+            } else {
+                alert("Please select a category.");
+            }
+        });
+
+        // Update Status
+        window.updateStatus = async (category, leaveId, status) => {
+            await db.collection('leaves').doc(category).collection('leaveEntries').doc(leaveId).update({
+                status: status
+            });
+
+            const applicationsContainer = document.getElementById('applications-container');
+            const rows = applicationsContainer.querySelectorAll('tr');
+
+            rows.forEach(row => {
+                const statusCell = row.querySelector('.status');
+                const buttonsCell = row.querySelector('td:last-child');
+
+                if (statusCell && buttonsCell) {
+                    if (statusCell.innerText !== 'Approved' && statusCell.innerText !== 'Rejected') {
+                        statusCell.innerText = status;
+                        buttonsCell.innerHTML = ''; // Remove buttons after approval or rejection
+                    }
+                }
+            });
+        };
+    </script>
 </body>
 </html>

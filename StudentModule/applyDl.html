@@ -288,12 +288,11 @@
     
             if (rollNumber && leaveType && category && event && leaveStart && leaveEnd && slot) {
                 try {
-                    // Create a unique identifier for each leave entry
-                    const leaveEntryId = `${rollNumber}_${Date.now()}`; // Use roll number + timestamp for uniqueness
-                    
-                    // Store leave entry in the appropriate category using a unique ID
+                
+                    const leaveEntryId = `${rollNumber}_${Date.now()}`; 
+                
                     await db.collection('leaves').doc(category).collection('leaveEntries').doc(leaveEntryId).set({
-                        rollNumber, // Include roll number in the document
+                        rollNumber, 
                         leaveType,
                         event,
                         leaveStart,
@@ -302,7 +301,6 @@
                         status: "Pending"
                     });
     
-                    // Display success popup and reset form
                     document.querySelector('.success-popup').style.display = 'block';
                     document.querySelector('.overlay').style.display = 'block';
                     leaveForm.reset();
@@ -317,7 +315,6 @@
             }
         });
 
-        // Close popups
         document.getElementById('close-popup').addEventListener('click', () => {
             document.querySelector('.success-popup').style.display = 'none';
             document.querySelector('.overlay').style.display = 'none';

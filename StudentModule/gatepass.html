@@ -221,6 +221,7 @@
         </div>
         <div class="button">
           <button type="submit">Submit Gatepass</button>
+          <button type="sybmit" onclick=clear();>Clear</button>
         </div>
       </form>
     </div>
@@ -233,6 +234,12 @@
     function toggleMenu() {
       const navMenu = document.getElementById('nav-menu');
       navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
+    }
+    function clear(){
+      document.getElementById('roll-number').value='';
+      document.getElementById('time').value='';
+      document.getElementById('reason').value='';
+      
     }
   </script>
 </body>

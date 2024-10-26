@@ -253,16 +253,13 @@
                 <input type="password" id="password" placeholder="Password" required />
                 
                 <span id="loginError" class="error"></span>
-                <button type="button" id="bl" name="login"></button>
+                <a href="/Users/hargundeepsingh/Downloads/FEE-2/AcademiaPro/Admin_Module/dashboradadmin.html"><button type="button" id="bl" name="login">Log In</button></a>
             </form>
         </div>
         <div class="overlay-container" id="overlayContainer">
             <div class="overlay">
                 <div class="overlay-panel overlay-right">
                     <h1 id="ht">Welcome to AcademiaPro</h1>
-                    
-                   
-                    
                 </div>
             </div>
         </div>
@@ -306,6 +303,12 @@
     updateContent();
     
     document.getElementById("languageButton").addEventListener("click", toggleLanguage);
+    
+    // Login button navigation
+    document.getElementById("bl").addEventListener("click", function() {
+      // Perform any form validation here if needed
+      window.location.href = "dashboradadmin.html"; // Navigate to dashboardadmin.html
+    });
     </script>
 </body>
 </html>

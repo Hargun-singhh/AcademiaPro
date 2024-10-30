@@ -3,66 +3,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Attendance Subjectvise</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Attendance Subject-wise</title>
     <style>
+        body {
+    font-family: sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+    border-top: 90px solid  #29527a;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    padding: 20px;
+    width: 300px;
+    text-align: left;
+}
+
+h2 {
+    color: #333;
+    margin-top: 0;
+}
+
+.data {
+    margin-bottom: 10px;
+}
+
+.data span {
+    font-weight: bold;
+}
+
+.percentage {
+    font-size: 20px;
+    color: #f44336;
+}
+
+.header{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color:   #29527a;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+}
+
+
+@media screen and (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+}
     </style>
 </head>
 <body>
     <div class="header">
-        <h1>Attendance Subjectvise</h1>
+        <h1>Attendance Subject-wise</h1>
     </div>
 
-    <div class="container">
-        <div class="card">
-            <h2>Computer Networks <span style="font-size: smaller;">231c79</span></h2>
-            <div class="data">Teacher: <span>SANJOY KUMAR DEBNATH</span></div>
-            <div class="data">From: <span>25-06-2024</span></div>
-            <div class="data">To: <span>25-06-2024</span></div>
-            <div class="data">Delivered: <span>100</span></div>
-            <div class="data">Attended: <span>80</span></div>
-            <div class="data">ML: <span>2</span></div>
-            <div class="data">DL: <span>1</span></div>
-            <div class="data">Percentage: <span class="percentage">78%</span></div>
-        </div>
-
-        <div class="card">
-            <h2> DBMS <span style="font-size: smaller;">231c79</span></h2>
-            <div class="data">Teacher: <span>Simran Saini</span></div>
-            <div class="data">From: <span>25-06-2024</span></div>
-            <div class="data">To: <span>25-06-2024</span></div>
-            <div class="data">Delivered: <span>100</span></div>
-            <div class="data">Attended: <span>80</span></div>
-            <div class="data">ML: <span>2</span></div>
-            <div class="data">DL: <span>1</span></div>
-            <div class="data">Percentage: <span class="percentage">90%</span></div>
-        </div>
-        <div class="card">
-            <h2> OOPS <span style="font-size: smaller;">231c89</span></h2>
-            <div class="data">Teacher: <span>Prabhakar Kumar </span></div>
-            <div class="data">From: <span>25-06-2024</span></div>
-            <div class="data">To: <span>25-06-2024</span></div>
-            <div class="data">Delivered: <span>100</span></div>
-            <div class="data">Attended: <span>80</span></div>
-            <div class="data">ML: <span>2</span></div>
-            <div class="data">DL: <span>1</span></div>
-            <div class="data">Percentage: <span class="percentage">80%</span></div>
-        </div>
-        <div class="card">
-            <h2>FEE <span style="font-size: smaller;">231c76</span></h2>
-            <div class="data">Teacher: <span>Mananjay Kumar Dubey</span></div>
-            <div class="data">From: <span>25-06-2024</span></div>
-            <div class="data">To: <span>25-06-2024</span></div>
-            <div class="data">Delivered: <span>100</span></div>
-            <div class="data">Attended: <span>80</span></div>
-            <div class="data">ML: <span>2</span></div>
-            <div class="data">DL: <span>1</span></div>
-            <div class="data">Percentage: <span class="percentage">92%</span></div>
-        </div>
-    
+    <div class="container" id="attendanceContainer">
+        <!-- Cards will be populated here dynamically -->
     </div>
 
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore-compat.js"></script>
+
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAK8de7_sRE5DVRhIQ6SPpAgqSyqcFTIIM",
+            authDomain: "academiapro-bd0a6.firebaseapp.com",
+            projectId: "academiapro-bd0a6",
+            storageBucket: "academiapro-bd0a6.appspot.com",
+            messagingSenderId: "529677900658",
+            appId: "1:529677900658:web:ad5654b1bb976c935d5beb",
+            measurementId: "G-BEM8XGW7QC"
+        };
+
+        const app = firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore(app);
+
+        async function fetchAttendanceData(group) {
+            const attendanceContainer = document.getElementById("attendanceContainer");
+            attendanceContainer.innerHTML = "";
+
+            const studentRollNumber = localStorage.getItem('rollno'); // Get roll number from localStorage
+
+            if (!studentRollNumber) {
+                console.error("No roll number found. Please log in.");
+                return;
+            }
+
+            try {
+                const groupDocRef = db.collection("attendance").doc(group);
+                const subjects = ["MATHS", "DBMS", "OOPS", "FEE"]; 
+
+                for (const subject of subjects) {
+                    let totalClasses = -1;
+                    let attendedClasses = 0;
+                    let mlCount = 0;
+                    let dlCount = 0;
+
+                    const studentDocRef = groupDocRef.collection(subject).doc(studentRollNumber);
+                    const studentDocSnapshot = await studentDocRef.get();
+
+                    if (studentDocSnapshot.exists) {
+                        const attendanceRecords = studentDocSnapshot.data();
+
+                        Object.entries(attendanceRecords).forEach(([date, status]) => {
+                            totalClasses++;
+                            if (status === "Present") attendedClasses++;
+                            else if (status === "ML") mlCount++;
+                            else if (status === "DL") dlCount++;
+                        });
+
+                        const attendancePercentage = ((attendedClasses / totalClasses) * 100).toFixed(2);
+
+                        const card = document.createElement("div");
+                        card.className = "card";
+                        card.innerHTML = `
+                            <h2>${subject}</h2>
+                            <div class="data">Total Classes: <span>${totalClasses}</span></div>
+                            <div class="data">Attended: <span>${attendedClasses}</span></div>
+                            <div class="data">Medical Leaves: <span>${mlCount}</span></div>
+                            <div class="data">Duty Leaves: <span>${dlCount}</span></div>
+                            <div class="data">Percentage: <span class="percentage">${attendancePercentage}%</span></div>
+                        `;
+                        attendanceContainer.appendChild(card);
+                    } else {
+                        console.warn(`No attendance record found for roll number ${studentRollNumber} in subject ${subject}`);
+                    }
+                }
+            } catch (error) {
+                console.error("Error fetching attendance data:", error);
+            }
+        }
+
+        // Example usage
+        const group = "G-10";  
+        fetchAttendanceData(group);
+    </script>
 </body>
-</html> 
-
- 
+</html>

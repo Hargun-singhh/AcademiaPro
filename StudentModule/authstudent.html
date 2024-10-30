@@ -228,6 +228,7 @@
           const email = document.getElementById("email").value;
           const password = document.getElementById("password").value;
           const rollno = document.getElementById("rollno").value;
+          
 
           try {
               const userDoc = await db.collection('student').doc(rollno).get(); // Use roll number as doc ID
@@ -235,6 +236,7 @@
                   const userData = userDoc.data();
                   if (userData.status === "approved") {
                       window.location.href = "homepage.html";
+                      localStorage.setItem('rollno', rollno);
                   } else if (userData.status === "rejected") {
                       alert("Your account has been rejected. Please contact the owner.");
                   } else {

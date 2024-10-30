@@ -1,74 +1,60 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Attendance Upload</title>
+  <title>Attendance</title>
   <style>
+    /* CSS styling */
     body {
       font-family: sans-serif;
       background-color: #e9f7ef;
       margin: 0;
     }
-
     .container-top {
-    background-color: #324E30 ;
-    color: #fff;
-    padding: 10px;
-    text-align: center;
-    height: 70px;
-   
-}
-
+      background-color: #324E30;
+      color: #fff;
+      padding: 10px;
+      text-align: center;
+      height: 70px;
+    }
     .container-bottom {
-    background-color: #324E30; /* Same color as top */
-    height: 70px; /* Adjust height as needed */
-}
-
-.content {
-    background-color: white ;
-    margin: 20px auto;
-    /* margin-top: 20px; */
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 1150px;
-    
-}
-
+      background-color: #324E30;
+      height: 70px;
+    }
+    .content {
+      background-color: white;
+      margin: 20px auto;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      width: 1150px;
+    }
     h2 {
       text-align: center;
       margin-bottom: 20px;
     }
-
     label {
       display: block;
       margin-bottom: 5px;
     }
-
-    select,
-    input[type="date"] {
+    select, input[type="date"] {
       width: 100%;
       padding: 10px;
       border: 1px solid #ccc;
       margin-bottom: 10px;
     }
-
     table {
       width: 100%;
       border-collapse: collapse;
       margin-bottom: 20px;
     }
-
-    th,
-    td {
+    th, td {
       padding: 10px;
       border: 1px solid #ccc;
       text-align: left;
     }
-
     th {
       background-color: #f0f0f0;
     }
-
     button {
       padding: 10px 20px;
       background-color: #4CAF50;
@@ -76,322 +62,167 @@
       border: none;
       cursor: pointer;
     }
-
-    .inline{
-        display: inline-block;
-        margin-right: 20px;
-    }
-
-    label {
-    display: block;
-    margin-bottom: 5px;
-    }
-
-input[type="text"],
-textarea {
-    width: 700px;
-    padding: 10px;
-   
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-}
-
   </style>
 </head>
 <body>
- 
-    <div class="container-top">
-        <h1>Attendance Upload</h1>
-    </div>
 
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore-compat.js"></script>
 
+  <script>
+    // Your Firebase configuration
+    const firebaseConfig = {
+            apiKey: "AIzaSyAK8de7_sRE5DVRhIQ6SPpAgqSyqcFTIIM",
+            authDomain: "academiapro-bd0a6.firebaseapp.com",
+            projectId: "academiapro-bd0a6",
+            storageBucket: "academiapro-bd0a6.appspot.com",
+            messagingSenderId: "529677900658",
+            appId: "1:529677900658:web:ad5654b1bb976c935d5beb",
+            measurementId: "G-BEM8XGW7QC"
+        };
 
-    <div class="content">
-      
-    <form>
-      <div class="inline">
-        <label for="group">Group:</label>
-        <input type="text" id="group" name="group">
-        <select id="group" name="group">
-          <option value="G-10">G-10</option>
-          <option value="G-11">G-11</option>
-          <option value="G-12">G-12</option>
-        </select>
-      </div>
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
 
-      <div class="inline">
-        <label for="subject">Subject:</label>
-        <select id="subject" name="subject">
-          <option value="FEE-9">FEE-9</option>
-          <option value="MATHS">MATHS</option>
-          <option value="SCIENCE">SCIENCE</option>
-        </select>
-      </div>
+    // Function to fetch students
+    async function fetchStudents(group, subject) {
+      const studentsTableBody = document.querySelector("#studentsTable tbody");
+      studentsTableBody.innerHTML = ""; // Clear existing rows
 
-      <div class="inline">
-        <label for="date">Date:</label>
-        <input type="date" id="date" name="date">
-      </div>
+      try {
+        const studentsSnapshot = await db.collection("attendance")
+                                        .doc(group)
+                                        .collection(subject)
+                                        .get();
+        let index = 1;
+        studentsSnapshot.forEach(doc => {
+          const rollNumber = doc.id;
+          const studentName = doc.data().name || "Unknown"; // Assuming each doc has 'name' field
 
-      <div>
-        <label for="set-all-attendance">Set Attendance for All Students:</label>
-        <select id="set-all-attendance" name="set-all-attendance">
-          <option value="">Select</option>
-          <option value="Present">Present</option>
-          <option value="Absent">Absent</option>
-          <option value="ML">ML</option>
-          <option value="DL">DL</option>
-        </select>
-      </div>
+          const row = document.createElement("tr");
+          row.classList.add("student-row");
+          row.dataset.roll = rollNumber;
+          row.innerHTML = `
+            <td>${index++}</td>
+            <td>${studentName}</td>
+            <td>${rollNumber}</td>
+            <td>
+              <select>
+                <option value="Present">Present</option>
+                <option value="Absent">Absent</option>
+                <option value="ML">ML</option>
+                <option value="DL">DL</option>
+              </select>
+            </td>
+          `;
+          studentsTableBody.appendChild(row);
+        });
+      } catch (error) {
+        console.error("Error fetching students:", error);
+      }
+    }
 
-      <table>
+    // Function to save attendance data
+    async function saveAttendance(group, subject, rollNumber, date, status) {
+      try {
+        const attendanceRef = db
+          .collection("attendance")
+          .doc(group)
+          .collection(subject)
+          .doc(rollNumber);
+
+        await attendanceRef.set(
+          { [date]: status },
+          { merge: true }
+        );
+
+        console.log(`Attendance saved for Roll No: ${rollNumber}`);
+      } catch (error) {
+        console.error("Error saving attendance:", error);
+      }
+    }
+
+    // Handle form submission
+    document.addEventListener("DOMContentLoaded", function () {
+      document.getElementById("attendanceForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const group = document.getElementById("group").value;
+        const subject = document.getElementById("subject").value;
+        const date = document.getElementById("date").value;
+
+        document.querySelectorAll(".student-row").forEach(row => {
+          const rollNumber = row.dataset.roll;
+          const status = row.querySelector("select").value;
+          saveAttendance(group, subject, rollNumber, date, status);
+        });
+      });
+
+      // Fetch students on group or subject selection change
+      document.getElementById("group").addEventListener("change", function () {
+        const group = this.value;
+        const subject = document.getElementById("subject").value;
+        if (group && subject) {
+          fetchStudents(group, subject);
+        }
+      });
+
+      document.getElementById("subject").addEventListener("change", function () {
+        const group = document.getElementById("group").value;
+        const subject = this.value;
+        if (group && subject) {
+          fetchStudents(group, subject);
+        }
+      });
+    });
+  </script>
+
+  <div class="container-top">
+    <h1>Attendance</h1>
+  </div>
+
+  <div class="content">
+    <form id="attendanceForm">
+      <label for="group">Group:</label>
+      <select id="group" name="group">
+        <option value="">Select Group</option>
+        <option value="G-10">G-10</option>
+        <option value="G-11">G-11</option>
+        <option value="G-12">G-12</option>
+      </select>
+
+      <label for="subject">Subject:</label>
+      <select id="subject" name="subject">
+        <option value="">Select Subject</option>
+        <option value="FEE-II">FEE-II</option>
+        <option value="MATHS">MATHS</option>
+        <option value="DBMS">DBMS</option>
+        <option value="OOPS">OOPS</option>
+      </select>
+
+      <label for="date">Date:</label>
+      <input type="date" id="date" name="date">
+
+      <table id="studentsTable">
         <thead>
           <tr>
             <th>S.No.</th>
             <th>Student Name</th>
-            <th>Student Roll No</th>
+            <th>Roll No</th>
             <th>Attendance</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>Harshita Sharma</td>
-            <td>2310990768</td>
-            <td>
-              <select>
-                <option value="Present">Present</option>
-                <option value="Absent">Absent</option>
-                <option value="ML">ML</option>
-                <option value="DL">DL</option>
-              </select>
-            </td>
-          </tr>
+          <!-- Student rows will be populated here -->
+        </tbody>
+      </table>
 
-          <tr>
-            <td>2</td>
-            <td>Hargun Deep Singh</td>
-            <td>2310990778</td>
-            <td>
-              <select>
-                <option value="Present">Present</option>
-                <option value="Absent">Absent</option>
-                <option value="ML">ML</option>
-                <option value="DL">DL</option>
-              </select>
-            </td>
-          </tr>
-
-          <tr>
-            <td>3</td>
-            <td>Kashvi Chuchra</td>
-            <td>2310990793</td>
-            <td>
-              <select>
-                <option value="Present">Present</option>
-                <option value="Absent">Absent</option>
-                <option value="ML">ML</option>
-                <option value="DL">DL</option>
-              </select>
-            </td>
-          </tr>
-
-          <tr>
-            <td>4</td>
-            <td>Noor Gumber</td>
-            <td>2310990840</td>
-            <td>
-              <select>
-                <option value="Present">Present</option>
-                <option value="Absent">Absent</option>
-                <option value="Absent">Absent</option>
-                <option value="ML">ML</option>
-                <option value="DL">DL</option>
-              </select>
-            </td>
-            </tr>
-
-            <tr>
-              <td>1</td>
-              <td>Harshita Sharma</td>
-              <td>2310990768</td>
-              <td>
-                <select>
-                  <option value="Present">Present</option>
-                  <option value="Absent">Absent</option>
-                  <option value="ML">ML</option>
-                  <option value="DL">DL</option>
-                </select>
-              </td>
-            </tr>
-  
-            <tr>
-              <td>2</td>
-              <td>Hargun Deep Singh</td>
-              <td>2310990778</td>
-              <td>
-                <select>
-                  <option value="Present">Present</option>
-                  <option value="Absent">Absent</option>
-                  <option value="ML">ML</option>
-                  <option value="DL">DL</option>
-                </select>
-              </td>
-            </tr>
-  
-            <tr>
-              <td>3</td>
-              <td>Kashvi Chuchra</td>
-              <td>2310990793</td>
-              <td>
-                <select>
-                  <option value="Present">Present</option>
-                  <option value="Absent">Absent</option>
-                  <option value="ML">ML</option>
-                  <option value="DL">DL</option>
-                </select>
-              </td>
-            </tr>
-  
-            <tr>
-              <td>4</td>
-              <td>Noor Gumber</td>
-              <td>2310990840</td>
-              <td>
-                <select>
-                  <option value="Present">Present</option>
-                  <option value="Absent">Absent</option>
-                  <option value="Absent">Absent</option>
-                  <option value="ML">ML</option>
-                  <option value="DL">DL</option>
-                </select>
-              </td>
-              </tr>
-
-              <tr>
-                <td>1</td>
-                <td>Harshita Sharma</td>
-                <td>2310990768</td>
-                <td>
-                  <select>
-                    <option value="Present">Present</option>
-                    <option value="Absent">Absent</option>
-                    <option value="ML">ML</option>
-                    <option value="DL">DL</option>
-                  </select>
-                </td>
-              </tr>
-    
-              <tr>
-                <td>2</td>
-                <td>Hargun Deep Singh</td>
-                <td>2310990778</td>
-                <td>
-                  <select>
-                    <option value="Present">Present</option>
-                    <option value="Absent">Absent</option>
-                    <option value="ML">ML</option>
-                    <option value="DL">DL</option>
-                  </select>
-                </td>
-              </tr>
-    
-              <tr>
-                <td>3</td>
-                <td>Kashvi Chuchra</td>
-                <td>2310990793</td>
-                <td>
-                  <select>
-                    <option value="Present">Present</option>
-                    <option value="Absent">Absent</option>
-                    <option value="ML">ML</option>
-                    <option value="DL">DL</option>
-                  </select>
-                </td>
-              </tr>
-    
-              <tr>
-                <td>4</td>
-                <td>Noor Gumber</td>
-                <td>2310990840</td>
-                <td>
-                  <select>
-                    <option value="Present">Present</option>
-                    <option value="Absent">Absent</option>
-                    <option value="Absent">Absent</option>
-                    <option value="ML">ML</option>
-                    <option value="DL">DL</option>
-                  </select>
-                </td>
-                </tr>
-
-                <tr>
-                  <td>1</td>
-                  <td>Harshita Sharma</td>
-                  <td>2310990768</td>
-                  <td>
-                    <select>
-                      <option value="Present">Present</option>
-                      <option value="Absent">Absent</option>
-                      <option value="ML">ML</option>
-                      <option value="DL">DL</option>
-                    </select>
-                  </td>
-                </tr>
-      
-                <tr>
-                  <td>2</td>
-                  <td>Hargun Deep Singh</td>
-                  <td>2310990778</td>
-                  <td>
-                    <select>
-                      <option value="Present">Present</option>
-                      <option value="Absent">Absent</option>
-                      <option value="ML">ML</option>
-                      <option value="DL">DL</option>
-                    </select>
-                  </td>
-                </tr>
-      
-                <tr>
-                  <td>3</td>
-                  <td>Kashvi Chuchra</td>
-                  <td>2310990793</td>
-                  <td>
-                    <select>
-                      <option value="Present">Present</option>
-                      <option value="Absent">Absent</option>
-                      <option value="ML">ML</option>
-                      <option value="DL">DL</option>
-                    </select>
-                  </td>
-                </tr>
-      
-                <tr>
-                  <td>4</td>
-                  <td>Noor Gumber</td>
-                  <td>2310990840</td>
-                  <td>
-                    <select>
-                      <option value="Present">Present</option>
-                      <option value="Absent">Absent</option>
-                      <option value="Absent">Absent</option>
-                      <option value="ML">ML</option>
-                      <option value="DL">DL</option>
-                    </select>
-                  </td>
-                  </tr>
-
-            
-
-            </tbody>
-        </table>
+      <button type="submit">Save Attendance</button>
     </form>
+  </div>
 
-</div>
-
-<div class="container-bottom"></div>
-
+  <div class="container-bottom"></div>
 </body>
 </html>

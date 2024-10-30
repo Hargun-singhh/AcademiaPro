@@ -5,7 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="admin_css/as.css">
   <title>Approve Student</title>
-  
+  <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore-compat.js"></script>
 </head>
 <body>
   <nav class="navbar">
@@ -23,150 +25,109 @@
     </div>
   </nav>
 
-
   <div class="container">
-    <div class="card-wrapper">
-
-      <div class="card">
-        <p><strong>Name :-</strong> Hargun Deep Singh</p>
-        <p><strong>Roll Number :-</strong> 2310990778</p>
-        <p><strong>Department :-</strong> BE-CSE</p>
-        <p><strong>Group Number :-</strong> G10</p>
-        <p><strong>Year :-</strong> 2023</p>
-        <div class="buttons">
-          <button class="reject">Reject</button>
-          <button class="approve">Approve</button>
-        </div>
-      </div>
-      <div class="card">
-        <p><strong>Name :-</strong> Hargun Deep Singh</p>
-        <p><strong>Roll Number :-</strong> 2310990778</p>
-        <p><strong>Department :-</strong> BE-CSE</p>
-        <p><strong>Group Number :-</strong> G10</p>
-        <p><strong>Year :-</strong> 2023</p>
-        <div class="buttons">
-          <button class="reject">Reject</button>
-          <button class="approve">Approve</button>
-        </div>
-      </div>
-      <div class="card">
-        <p><strong>Name :-</strong> Hargun Deep Singh</p>
-        <p><strong>Roll Number :-</strong> 2310990778</p>
-        <p><strong>Department :-</strong> BE-CSE</p>
-        <p><strong>Group Number :-</strong> G10</p>
-        <p><strong>Year :-</strong> 2023</p>
-        <div class="buttons">
-          <button class="reject">Reject</button>
-          <button class="approve">Approve</button>
-        </div>
-      </div>
-      <div class="card">
-        <p><strong>Name :-</strong> Hargun Deep Singh</p>
-        <p><strong>Roll Number :-</strong> 2310990778</p>
-        <p><strong>Department :-</strong> BE-CSE</p>
-        <p><strong>Group Number :-</strong> G10</p>
-        <p><strong>Year :-</strong> 2023</p>
-        <div class="buttons">
-          <button class="reject">Reject</button>
-          <button class="approve">Approve</button>
-        </div>
-      </div>
-      <div class="card">
-        <p><strong>Name :-</strong> Hargun Deep Singh</p>
-        <p><strong>Roll Number :-</strong> 2310990778</p>
-        <p><strong>Department :-</strong> BE-CSE</p>
-        <p><strong>Group Number :-</strong> G10</p>
-        <p><strong>Year :-</strong> 2023</p>
-        <div class="buttons">
-          <button class="reject">Reject</button>
-          <button class="approve">Approve</button>
-        </div>
-      </div>
-      <div class="card">
-        <p><strong>Name :-</strong> Hargun Deep Singh</p>
-        <p><strong>Roll Number :-</strong> 2310990778</p>
-        <p><strong>Department :-</strong> BE-CSE</p>
-        <p><strong>Group Number :-</strong> G10</p>
-        <p><strong>Year :-</strong> 2023</p>
-        <div class="buttons">
-          <button class="reject">Reject</button>
-          <button class="approve">Approve</button>
-        </div>
-      </div>
-      <div class="card">
-        <p><strong>Name :-</strong> Hargun Deep Singh</p>
-        <p><strong>Roll Number :-</strong> 2310990778</p>
-        <p><strong>Department :-</strong> BE-CSE</p>
-        <p><strong>Group Number :-</strong> G10</p>
-        <p><strong>Year :-</strong> 2023</p>
-        <div class="buttons">
-          <button class="reject">Reject</button>
-          <button class="approve">Approve</button>
-        </div>
-      </div>
-      <div class="card">
-        <p><strong>Name :-</strong> Hargun Deep Singh</p>
-        <p><strong>Roll Number :-</strong> 2310990778</p>
-        <p><strong>Department :-</strong> BE-CSE</p>
-        <p><strong>Group Number :-</strong> G10</p>
-        <p><strong>Year :-</strong> 2023</p>
-        <div class="buttons">
-          <button class="reject">Reject</button>
-          <button class="approve">Approve</button>
-        </div>
-      </div>
-      <div class="card">
-        <p><strong>Name :-</strong> Hargun Deep Singh</p>
-        <p><strong>Roll Number :-</strong> 2310990778</p>
-        <p><strong>Department :-</strong> BE-CSE</p>
-        <p><strong>Group Number :-</strong> G10</p>
-        <p><strong>Year :-</strong> 2023</p>
-        <div class="buttons">
-          <button class="reject">Reject</button>
-          <button class="approve">Approve</button>
-        </div>
-      </div>
-      <div class="card">
-        <p><strong>Name :-</strong> Hargun Deep Singh</p>
-        <p><strong>Roll Number :-</strong> 2310990778</p>
-        <p><strong>Department :-</strong> BE-CSE</p>
-        <p><strong>Group Number :-</strong> G10</p>
-        <p><strong>Year :-</strong> 2023</p>
-        <div class="buttons">
-          <button class="reject">Reject</button>
-          <button class="approve">Approve</button>
-        </div>
-      </div>
-      
-    
-
-    </div>
+    <div class="card-wrapper" id="pendingStudents"></div>
   </div>
-  <footer class="footer">
 
-  </footer>
+  <footer class="footer"></footer>
 
   <script>
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyAK8de7_sRE5DVRhIQ6SPpAgqSyqcFTIIM",
+      authDomain: "academiapro-bd0a6.firebaseapp.com",
+      projectId: "academiapro-bd0a6",
+      storageBucket: "academiapro-bd0a6.appspot.com",
+      messagingSenderId: "529677900658",
+      appId: "1:529677900658:web:ad5654b1bb976c935d5beb",
+      measurementId: "G-BEM8XGW7QC"
+    };
 
-const hamburger = document.querySelector('.hamburger');
-const navLinks = document.querySelector('.nav-links');
+    // Initialize Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
 
-hamburger.addEventListener('click', () => {
-  navLinks.classList.toggle('active');
-});
+    // Function to load pending students from Firestore
+    async function loadPendingStudents() {
+      const pendingStudentsContainer = document.getElementById("pendingStudents");
+      pendingStudentsContainer.innerHTML = ''; // Clear previous entries
+      const snapshot = await db.collection('student').where('status', '==', 'pending').get();
 
-document.querySelectorAll('.approve').forEach(button => {
-  button.addEventListener('click', () => {
-    alert('Student Approved!');
-  });
-});
+      snapshot.forEach(doc => {
+        const data = doc.data();
+        const studentDiv = document.createElement('div');
+        studentDiv.classList.add('card'); 
+        studentDiv.innerHTML = `
+          <p><strong>Name :-</strong> ${data.email || 'N/A'}</p>
+          <p><strong>Roll Number :-</strong> ${data.rollno || 'N/A'}</p>
+          <div class="buttons">
+            <button class="reject" data-id="${doc.id}">Reject</button>
+            <button class="approve" data-id="${doc.id}" data-email="${data.email}" data-password="${data.password}">Approve</button>
+          </div>
+        `;
+        pendingStudentsContainer.appendChild(studentDiv);
+      });
+    }
 
-document.querySelectorAll('.reject').forEach(button => {
-  button.addEventListener('click', () => {
-    alert('Student Rejected!');
-  });
-});
+    // Approve a student and add to Firebase Auth
+    async function approveStudent(rollno, email, password) {
+      try {
+        // Add user to Firebase Auth
+        await auth.createUserWithEmailAndPassword(email, password);
 
+        // Update Firestore status to approved
+        await db.collection('student').doc(rollno).update({
+          status: "approved"
+        });
+        alert("Student approved successfully!");
+        loadPendingStudents(); // Refresh the list
+      } catch (error) {
+        console.error("Error approving student:", error);
+        alert("Error approving student: " + error.message);
+      }
+    }
+
+    // Reject a student and update Firestore
+    async function rejectStudent(studentId) {
+      try {
+        // Update Firestore status to rejected
+        await db.collection('student').doc(studentId).update({
+          status: "rejected"
+        });
+        alert("Student rejected successfully!");
+        loadPendingStudents(); // Refresh the list
+      } catch (error) {
+        console.error("Error rejecting student:", error);
+        alert("Error rejecting student: " + error.message);
+      }
+    }
+
+    // Event listeners for approve and reject buttons
+    document.addEventListener('click', (event) => {
+      if (event.target.classList.contains('approve')) {
+        const rollno = event.target.getAttribute('data-id');
+        const email = event.target.getAttribute('data-email');
+        const password = event.target.getAttribute('data-password');
+        approveStudent(rollno, email, password);
+      }
+
+      if (event.target.classList.contains('reject')) {
+        const studentId = event.target.getAttribute('data-id');
+        rejectStudent(studentId);
+      }
+    });
+
+    // Load pending students on page load
+    loadPendingStudents();
+
+    // Hamburger menu toggle
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
   </script>
 </body>
 </html>

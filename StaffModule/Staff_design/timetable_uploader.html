@@ -5,19 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Time Table Upload</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
     <link rel="stylesheet" href="Staff_Css/external3.css">
-   
+    <style>
+        .upload-area {
+            border: 2px dashed #ccc;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+        #preview-img {
+            display: none;
+            max-width: 100%;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
 
-<!-- Header Section -->
 <header>
     <h2>TIME TABLE UPLOAD</h2>
 </header>
 
-<!-- Form Inputs -->
-<form>
+<form id="upload-form">
     <label for="batch">BATCH :</label>
     <input type="text" id="batch" placeholder="Enter Batch">
 
@@ -30,92 +40,72 @@
     <label for="year">YEAR :</label>
     <input type="text" id="year" placeholder="Enter Year">
 
-    <!-- Upload Area -->
     <div class="upload-area" id="upload-area">
         <i class="fa fa-upload"></i>
         <p>Drop Time Table to upload <br> or <span id="browse-btn">browse</span></p>
-        <input type="file" id="file-input" accept="image/*">
-        <img id="preview-img" src="#" alt="Image Preview">
+        <input type="file" id="file-input" accept="application/pdf" style="display:none;">
+        <p id="file-name"></p>
     </div>
 
-  
-
-    <!-- Buttons for Upload and Cancel -->
-<div class="button-container">
-    <button id="upload-btn">Upload</button>
-    <button id="cancel-btn">Cancel</button>
-</div>
+    <div class="button-container">
+        <button type="submit" id="upload-btn">Upload</button>
+        <button type="button" id="cancel-btn">Cancel</button>
+    </div>
 </form>
 
-<!-- Footer Section -->
-<footer class="footer">
-</footer>
+<footer class="footer"></footer>
+
+<script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-storage-compat.js"></script>
 
 <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyApEZByeoMNO_j88VSqFTBQ9dB7pepExWo",
+            authDomain: "academiapro-692a4.firebaseapp.com",
+            projectId: "academiapro-692a4",
+            storageBucket: "academiapro-692a4.appspot.com",
+            messagingSenderId: "634388116599",
+            appId: "1:634388116599:web:92d9bd3ecbb325bf4b4272",
+            measurementId: "G-7ZHQZYR9SX"
+        };
+    const app = firebase.initializeApp(firebaseConfig);
+    const storage = firebase.storage();
+
     const uploadArea = document.getElementById('upload-area');
     const fileInput = document.getElementById('file-input');
-    const browseBtn = document.getElementById('browse-btn');
-    const previewImg = document.getElementById('preview-img');
-
-    browseBtn.addEventListener('click', () => {
-        fileInput.click();
-    });
+    const fileNameDisplay = document.getElementById('file-name');
+    
+    uploadArea.addEventListener('click', () => fileInput.click());
 
     fileInput.addEventListener('change', (event) => {
         const file = event.target.files[0];
-        if (file && file.type.startsWith('image/')) {
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                previewImg.src = e.target.result;
-                previewImg.style.display = 'block';
-            };
-            reader.readAsDataURL(file);
+        fileNameDisplay.innerText = file && file.type === 'application/pdf' ? `Selected File: ${file.name}` : 'Please select a valid PDF file.';
+    });
+
+    const uploadForm = document.getElementById('upload-form');
+    uploadForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const file = fileInput.files[0];
+        if (!file) return alert("Please upload a PDF file.");
+
+        const batch = document.getElementById('batch').value;
+        const semester = document.getElementById('semester').value;
+        const department = document.getElementById('department').value;
+        const year = document.getElementById('year').value;
+
+        const pdfRef = storage.ref().child(`timetables/${year}_${department}_${batch}_${semester}.pdf`);
+
+        try {
+            await pdfRef.put(file);
+            alert("File uploaded successfully!");
+            fileInput.value = '';
+            fileNameDisplay.innerText = '';
+            window.location.href = `timetable.html?year=${year}&department=${department}&batch=${batch}&semester=${semester}`;
+        } catch (error) {
+            console.error('Upload error:', error);
+            alert('Failed to upload file: ' + error.message);
         }
     });
-
-    uploadArea.addEventListener('dragover', (event) => {
-        event.preventDefault();
-        uploadArea.style.backgroundColor = '#ddebd8';
-    });
-
-    uploadArea.addEventListener('dragleave', () => {
-        uploadArea.style.backgroundColor = 'transparent';
-    });
-
-    uploadArea.addEventListener('drop', (event) => {
-        event.preventDefault();
-        uploadArea.style.backgroundColor = 'transparent';
-        const file = event.dataTransfer.files[0];
-        if (file && file.type.startsWith('image/')) {
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                previewImg.src = e.target.result;
-                previewImg.style.display = 'block';
-            };
-            reader.readAsDataURL(file);
-        }
-    });
-
-    const uploadBtn = document.getElementById('upload-btn');
-const cancelBtn = document.getElementById('cancel-btn');
-// const fileInput = document.getElementById('file-input');
-// const previewImg = document.getElementById('preview-img');
-
-uploadBtn.addEventListener('click', () => {
-    if (!fileInput.files.length) {
-        alert("File not selected! Please upload an image."); // Alert if no file is selected
-    } else {
-        // Logic to handle the upload (e.g., send the file to the server)
-        alert("File uploaded successfully!"); // Placeholder alert
-    }
-});
-
-cancelBtn.addEventListener('click', () => {
-    fileInput.value = ''; // Clear the file input
-    previewImg.src = ''; // Clear the image preview
-    previewImg.style.display = 'none'; // Hide the image
-});
 </script>
-
 </body>
 </html>

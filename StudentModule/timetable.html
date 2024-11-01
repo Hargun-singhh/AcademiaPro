@@ -3,119 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Responsive Time Table</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Timetable Receiver</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
-        /* General Styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    background-color: #f0f4f8;
-
-}
-
-/* Navbar */
-nav {
-    width: 100%;
-    background-color: #254563;
-    padding: 15px;
-    position: fixed; /* Fix the navbar at the top */
-    top: 0; /* Position it at the top */
-    left: 0; /* Align it to the left */
-    z-index: 1000; /
-}
-
-.nav-bar h1 {
-    text-align: center;
-    color: white;
-    font-size: 24px;
-}
-
-/* Container */
-.container {
-    margin-top: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 80%;
-}
-
-/* Timetable Frame */
-.timetable-frame {
-    background-color: #ecf0f1;
-    padding: 20px;
-    border: 2px solid #bdc3c7;
-    border-radius: 10px;
-    width: 100%;
-    max-width: 800px;
-}
-
-.timetable-content {
-    width: 100%;
-    background-color: #bdc3c7;
-    height: 400px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.timetable-content p {
-    color: white;
-    font-size: 18px;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .nav-bar h1 {
-        font-size: 20px;
-    }
-
-    .timetable-frame {
-        padding: 15px;
-    }
-
-    .timetable-content {
-        height: 300px;
-    }
-}
-
-@media (max-width: 480px) {
-    .nav-bar h1 {
-        font-size: 18px;
-    }
-
-    .timetable-content p {
-        font-size: 16px;
-    }
-}
-
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #eaeef3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            color: #444;
+        }
+        .container {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+        }
+        .timetable-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+        .timetable-link:hover {
+            background-color: #0056b3;
+        }
     </style>
-
 </head>
 <body>
-    <nav>
-        <div class="nav-bar">
-            <h1>Time Table</h1>
-        </div>
-    </nav>
-    <div class="container">
-        <div class="timetable-frame">
-            <div class="timetable-content">
-                <p>Time Table pdf will show here</p>
-            </div>
-        </div>
-    </div>
 
-    <script src="script.js"></script>
+<div class="container">
+    <h2>Your Timetable</h2>
+    <div id="timetable-container"></div>
+    <p id="loading">Loading your timetable...</p>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore-compat.js"></script>
+
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyApEZByeoMNO_j88VSqFTBQ9dB7pepExWo",
+        authDomain: "academiapro-692a4.firebaseapp.com",
+        projectId: "academiapro-692a4",
+        storageBucket: "academiapro-692a4.appspot.com",
+        messagingSenderId: "634388116599",
+        appId: "1:634388116599:web:92d9bd3ecbb325bf4b4272",
+        measurementId: "G-7ZHQZYR9SX"
+    };
+
+    const app = firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    async function getTimetable() {
+        // Replace this with your method to retrieve the current user's roll number
+        const rollNo = "currentUserRollNo"; // You need to implement the logic to get the logged-in user's roll number
+
+        try {
+            // Retrieve user details
+            const studentDoc = await db.collection('students').doc(rollNo).get();
+            if (studentDoc.exists) {
+                const studentData = studentDoc.data();
+                const { branch: department, semester } = studentData; // Get department and semester
+
+                // Fetch the timetable based on department and semester
+                const timetableRef = db.collection('timetables').doc(`${department}_${semester}`);
+                const timetableDoc = await timetableRef.get();
+
+                if (timetableDoc.exists) {
+                    const timetableUrl = await timetableDoc.data().url; // Assuming you have a field named 'url'
+                    document.getElementById('loading').style.display = 'none'; // Hide loading text
+                    const timetableLink = document.createElement('a');
+                    timetableLink.href = timetableUrl;
+                    timetableLink.className = 'timetable-link';
+                    timetableLink.textContent = 'Download Timetable PDF';
+                    document.getElementById('timetable-container').appendChild(timetableLink);
+                } else {
+                    document.getElementById('loading').innerText = "Timetable not found for your department and semester.";
+                }
+            } else {
+                document.getElementById('loading').innerText = "User not found.";
+            }
+        } catch (error) {
+            console.error("Error fetching timetable: ", error);
+            document.getElementById('loading').innerText = "Error loading timetable.";
+        }
+    }
+
+    window.onload = getTimetable;
+</script>
+
 </body>
 </html>

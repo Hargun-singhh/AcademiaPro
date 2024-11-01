@@ -3,53 +3,195 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Timetable Receiver</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>Retrieve Time Table</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #eaeef3;
+            font-family: 'Arial', sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            color: #444;
-        }
-        .container {
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            background-color: #f4f4f4;
+            margin: 0;
             padding: 20px;
-            width: 90%;
-            max-width: 600px;
-            text-align: center;
         }
-        .timetable-link {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #007bff;
+
+        header {
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            color: #333;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: #2c3e50;
             color: white;
-            border-radius: 5px;
-            text-decoration: none;
-            transition: background 0.3s;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000; /* Make sure the navbar is above other content */
         }
-        .timetable-link:hover {
-            background-color: #0056b3;
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 1.1rem;
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            width: 90%;
+            max-width: 1200px;
+            margin-top: 80px; /* Add margin to avoid overlap with navbar */
+        }
+
+        .form-container {
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            border-color: #2c3e50;
+            outline: none;
+        }
+
+        button {
+            background-color: #2c3e50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #3d556d;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            background-color: #f9f9f9;
+            display: none; /* Hidden by default */
+            width: 100%;
+        }
+
+        iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .timetable-container {
+            flex-grow: 1;
+            margin-left: 20px; /* Space between form and timetable */
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .timetable-frame {
+            width: 100%;
+            max-width: 800px; /* Adjust the max width as needed */
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 10px;
         }
     </style>
 </head>
 <body>
 
+<!-- Fixed Navbar -->
+<div class="navbar">
+    <div class="navbar-logo">Academia</div>
+    <div class="navbar-links">
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+        <a href="#">Help</a>
+    </div>
+</div>
+
+<header>
+    <h2>RETRIEVE TIME TABLE</h2>
+</header>
+
 <div class="container">
-    <h2>Your Timetable</h2>
-    <div id="timetable-container"></div>
-    <p id="loading">Loading your timetable...</p>
+    <div class="form-container">
+        <form id="retrieve-form">
+            <label for="batch">BATCH :</label>
+            <input type="text" id="batch" placeholder="Enter Batch" required>
+
+            <label for="semester">SEMESTER :</label>
+            <input type="text" id="semester" placeholder="Enter Semester" required>
+
+            <label for="department">DEPARTMENT :</label>
+            <input type="text" id="department" placeholder="Enter Department" required>
+
+            <label for="year">YEAR :</label>
+            <input type="text" id="year" placeholder="Enter Year" required>
+
+            <button type="submit">Retrieve</button>
+        </form>
+    </div>
+
+    <div class="timetable-container">
+        <div class="timetable-frame" id="result">
+            <iframe id="timetable-iframe" style="display: none;"></iframe>
+            <p id="placeholder-text" style="text-align: center; margin: 0; display: none;">Loading timetable...</p>
+        </div>
+    </div>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-storage-compat.js"></script>
 
 <script>
     const firebaseConfig = {
@@ -63,45 +205,38 @@
     };
 
     const app = firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
+    const storage = firebase.storage();
 
-    async function getTimetable() {
-        // Replace this with your method to retrieve the current user's roll number
-        const rollNo = "currentUserRollNo"; // You need to implement the logic to get the logged-in user's roll number
+    const retrieveForm = document.getElementById('retrieve-form');
+    const resultDiv = document.getElementById('result');
+    const timetableIframe = document.getElementById('timetable-iframe');
+    const placeholderText = document.getElementById('placeholder-text');
+
+    retrieveForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const batch = document.getElementById('batch').value;
+        const semester = document.getElementById('semester').value;
+        const department = document.getElementById('department').value;
+        const year = document.getElementById('year').value;
+
+        const pdfPath = `timetables/${year}_${department}_${batch}_${semester}.pdf`;
+        const pdfRef = storage.ref(pdfPath);
+
+        placeholderText.style.display = 'block'; // Show loading message
+        timetableIframe.style.display = 'none'; // Hide the iframe initially
 
         try {
-            // Retrieve user details
-            const studentDoc = await db.collection('students').doc(rollNo).get();
-            if (studentDoc.exists) {
-                const studentData = studentDoc.data();
-                const { branch: department, semester } = studentData; // Get department and semester
-
-                // Fetch the timetable based on department and semester
-                const timetableRef = db.collection('timetables').doc(`${department}_${semester}`);
-                const timetableDoc = await timetableRef.get();
-
-                if (timetableDoc.exists) {
-                    const timetableUrl = await timetableDoc.data().url; // Assuming you have a field named 'url'
-                    document.getElementById('loading').style.display = 'none'; // Hide loading text
-                    const timetableLink = document.createElement('a');
-                    timetableLink.href = timetableUrl;
-                    timetableLink.className = 'timetable-link';
-                    timetableLink.textContent = 'Download Timetable PDF';
-                    document.getElementById('timetable-container').appendChild(timetableLink);
-                } else {
-                    document.getElementById('loading').innerText = "Timetable not found for your department and semester.";
-                }
-            } else {
-                document.getElementById('loading').innerText = "User not found.";
-            }
+            const url = await pdfRef.getDownloadURL();
+            timetableIframe.src = url;
+            timetableIframe.style.display = 'block'; // Show the iframe
+            placeholderText.style.display = 'none'; // Hide loading message
         } catch (error) {
-            console.error("Error fetching timetable: ", error);
-            document.getElementById('loading').innerText = "Error loading timetable.";
+            console.error('Error retrieving file:', error);
+            resultDiv.innerText = 'Failed to retrieve file: ' + error.message;
+            resultDiv.style.display = 'block'; // Show error message
         }
-    }
-
-    window.onload = getTimetable;
+    });
 </script>
-
 </body>
 </html>

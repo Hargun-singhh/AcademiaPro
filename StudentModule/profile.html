@@ -3,178 +3,397 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
+    <title>Student Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
-        body {
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: sans-serif;
-            background-color: #f2f2f2;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            height: 100vh;  
-            justify-content: center;  
-            position: relative;  
         }
-         
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #eaeef3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            color: #444;
+            overflow: hidden;
+        }
         .border-top {
-            position: absolute;
+            width: 100%;
+            height: 60px;
+            background-color: #29527a;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 60px;
-            background-color: #29527a;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-        }
-        
-        .border-bottom {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 60px;
-            background-color: #29527a;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
         }
         .profile {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 60px; 
-            margin-bottom: 60px;  
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 90%;
+            max-width: 400px;
+            margin-top: 80px;
+            text-align: center;
         }
         .profile img {
             width: 100px;
             height: 100px;
             border-radius: 50%;
             object-fit: cover;
-        }
-        .profile input[type="file"] {
-            display: none;
-        }
-        .profile label {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border-radius: 5px;
-            cursor: pointer;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
         .profile h2 {
-            margin-top: 20px;
-            font-size: 24px;
+            font-size: 1.4em;
             color: #333;
+            margin-bottom: 10px;
         }
-        .profile p {
-            margin-top: 10px;
-            font-size: 16px;
-            color: #666;
+        .profile button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-size: 1.2em;
         }
-        .settings {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 30px;
-            width: 100%;  
+        .profile button:hover {
+            background-color: #45a049;
         }
-        .setting {
-            display: flex;
-            flex-direction: column;
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 3;
+            justify-content: center;
             align-items: center;
+            overflow: hidden;
+            transition: opacity 0.3s ease;
         }
-        .setting img {
-            width: 50px;
-            height: 50px;
+        .modal-content {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+            animation: slideDown 0.3s ease;
         }
-        .setting p {
-            margin-top: 10px;
-            font-size: 14px;
+        .profile-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            width: 100%;
+        }
+        .profile-header img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .profile-header-options {
+            display: flex;
+            gap: 10px;
+        }
+        .profile-header-options button {
+            background: linear-gradient(90deg, #007bff, #0056b3);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+            font-size: 1.1em;
+        }
+        .profile-header-options button:hover {
+            background: linear-gradient(90deg, #0056b3, #007bff);
+            box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+        }
+        .change-profile-btn {
+            background-color: #8BC34A;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-size: 1.1em;
+        }
+        .change-profile-btn:hover {
+            background-color: #3e8e41;
+        }
+        .delete-icon {
+            background-color: #fff;
+            color: #f44336;
+            border: 1px solid #f44336;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 8px rgba(244, 67, 54, 0.2);
+            font-size: 1.2em;
+        }
+        .delete-icon:hover {
+            background-color: #f44336;
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(244, 67, 54, 0.4);
+        }
+        .delete-icon i {
+            font-size: 1.2em;
+        }
+        .form-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .form-container input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+        .buttons-row {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+        .submit-btn, .cancel-btn {
+            padding: 8px 16px;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background 0.3s;
+            width: 48%;
+        }
+        .submit-btn {
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+        }
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+        .cancel-btn {
+            background-color: #f44336;
+            color: #fff;
+            border: none;
+        }
+        .cancel-btn:hover {
+            background-color: #e53935;
+        }
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 12px;
+            font-size: 1.4em;
+            cursor: pointer;
+            color: #777;
+            transition: color 0.2s;
+        }
+        .close-btn:hover {
             color: #333;
         }
- 
-        @media (max-width: 768px) {
-            .profile img {
-                width: 80px;
-                height: 80px;
-            }
-            .setting img {
-                width: 40px;
-                height: 40px;
-            }
-        }
-        @media (max-width: 480px) {
-            .profile img {
-                width: 60px;
-                height: 60px;
-            }
-            .setting img {
-                width: 30px;
-                height: 30px;
-            }
+        @keyframes slideDown {
+            from { transform: translateY(-30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
     </style>
 </head>
 <body>
 
-    <div class="border-top">
-        Profile
+<div class="profile">
+    <img id="profilePic" src="avatar.png" alt="Profile Picture">
+    <h2>Student Information</h2>
+    <button onclick="openModal()">Edit Profile</button>
+</div>
+
+<div id="profileModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <div class="profile-header">
+            <img id="modalProfilePic" src="avatar.png" alt="Profile Picture">
+            <div class="profile-header-options">
+                <button class="change-profile-btn" onclick="changeProfilePic()">Change Profile</button>
+                <button class="delete-icon" onclick="deleteProfilePic()">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+            </div>
+        </div>
+
+        <h2>Edit Profile</h2>
+        <form id="studentForm">
+            <div class="form-container">
+                <input type="text" id="name" placeholder="Name" required>
+                <input type="text" id="rollNo" placeholder="Roll No" required>
+                <input type="email" id="email" placeholder="Email" required>
+                <input type="text" id="address" placeholder="Address" required>
+                <input type="text" id="bloodGroup" placeholder="Blood Group">
+                <input type="text" id="gender" placeholder="Gender">
+                <input type="date" id="dob" placeholder="DOB" required>
+                <input type="text" id="sem" placeholder="sem" required>
+                <input type="text" id="branch" placeholder="Branch" required>
+                <input type="text" id="fatherName" placeholder="Father's Name" required>
+                <input type="tel" id="fatherPhone" placeholder="Father's Phone" required>
+                <input type="text" id="motherName" placeholder="Mother's Name" required>
+                <input type="tel" id="motherPhone" placeholder="Mother's Phone" required>
+            </div>
+    
+            <div class="buttons-row">
+                <button class="submit-btn">Save</button>
+                <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+            </div>
+        </form>
+
     </div>
+</div>
 
-    <div class="profile">
-        <img src="photos/profile.avif" alt="Profile Picture" id="profile-picture"><br>
-        <input type="file" id="file-input" accept="image/*" >
-        <label for="file-input" id="upload-label">Upload Picture</label>
-        <h2>John Doe</h2>
-        <p style="text-align: center;">BE_CSE <br> 2310990768 <br> G10</p>
-        
-    </div> 
+<div class="border-top">
+    Student Profile Page
+</div>
+<script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore-compat.js"></script>
 
-    <div class="settings">
-        <div class="setting">
-            <img src="photos/session.avif" alt="Session Icon 1">
-            <p>Session</p>
-        </div>
-        <div class="setting">
-            <img src="photos/change password.avif" alt="Change Password Icon 2">
-            <p>Change Password</p>
-        </div>
-        <div class="setting">
-            <img src="photos/privacy.avif" alt="Privacy Icon 3">
-            <p>Privacy</p>
-        </div>
-        <div class="setting">
-            <img src="photos/logout.avif" alt="Logout Icon 3">
-            <p>Logout</p>
-        </div>
-    </div>
 
-    <div class="border-bottom">
-        
-    </div>
+<script>
+  function openModal() {
+        document.getElementById('profileModal').style.display = 'flex';
+    }
 
-    <script>
-        const fileInput = document.getElementById('file-input');
-        const profilePicture = document.getElementById('profile-picture');
-        const uploadLabel = document.getElementById('upload-label');
+    function closeModal() {
+        document.getElementById('profileModal').style.display = 'none ';
+    }
 
-        fileInput.addEventListener('change', (e) => {
-            const file = fileInput.files[0];
+    function resetForm() {
+        document.querySelector('.form-container').reset();
+    }
+
+    function changeProfilePic() {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = 'image/*';
+        input.onchange = function (e) {
+            const file = e.target.files[0];
             const reader = new FileReader();
-            reader.onload = () => {
-                const imageDataUrl = reader.result;
-                profilePicture.src = imageDataUrl;
-                uploadLabel.style.display = 'none';
+            reader.onload = function (event) {
+                document.getElementById('modalProfilePic').src = event.target.result;
+                document.getElementById('profilePic').src = event.target.result;
             };
             reader.readAsDataURL(file);
-        });
-    </script>
+        };
+        input.click();
+    }
+
+    function deleteProfilePic() {
+        document.getElementById('modalProfilePic').src = 'avatar.png';
+        document.getElementById('profilePic').src = 'avatar.png';
+    }
+
+    function submitForm() {
+        // Implement form submission logic here
+        closeModal();
+    }
+
+    window.onclick = function(event) {
+        const modal = document.getElementById('profileModal');
+        if (event .target === modal) {
+            closeModal();
+        }
+    }
+   // Ensure to import Firebase SDK if using Firebase v9 or above
+// import { initializeApp } from "firebase/app";
+// import { getFirestore, doc, setDoc, collection } from "firebase/firestore";
+
+const firebaseConfig = { 
+    apiKey: "AIzaSyApEZByeoMNO_j88VSqFTBQ9dB7pepExWo",
+    authDomain: "academiapro-692a4.firebaseapp.com",
+    projectId: "academiapro-692a4",
+    storageBucket: "academiapro-692a4.appspot.com",
+    messagingSenderId: "634388116599",
+    appId: "1:634388116599:web:92d9bd3ecbb325bf4b4272",
+    measurementId: "G-7ZHQZYR9SX"
+};
+
+const app = firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+document.getElementById('studentForm').addEventListener('submit', async (e) => {
+    e.preventDefault(); // Prevent page reload
+
+    const studentData = {
+        name: document.getElementById('name').value,
+        rollNo: document.getElementById('rollNo').value,
+        email: document.getElementById('email').value,
+        address: document.getElementById('address').value,
+        bloodGroup: document.getElementById('bloodGroup').value,
+        gender: document.getElementById('gender').value,
+        dob: document.getElementById('dob').value,
+        branch: document.getElementById('branch').value,
+        sem: document.getElementById('sem').value,
+        parent: {
+            father: {
+                name: document.getElementById('fatherName').value,
+                phone: document.getElementById('fatherPhone').value,
+            },
+            mother: {
+                name: document.getElementById('motherName').value,
+                phone: document.getElementById('motherPhone').value,
+            }
+        }
+    };
+
+    try {
+        // Use rollno for the student document ID
+        const studentRef = db.collection('students').doc(studentData.rollNo);
+        await studentRef.set(studentData);
+
+        // Use rollno for the details collection, but consider a unique ID for each document
+        const detailsRef = studentRef.collection('details').doc(studentData.rollNo); // Adjust if needed
+        await detailsRef.set(studentData);
+
+        alert("Student profile created successfully!");
+        document.getElementById('profileModal').style.display = 'none'; // Close modal on successful submission
+        document.getElementById('studentForm').reset(); // Reset form fields
+        window.location.href ='homepage.html'; 
+    } catch (error) {
+    console.error("Error adding document: ", error.message); // log more details about the error
+    alert("Error creating student profile: " + error.message); // show error message to user
+}
+});
+
+// Close modal if clicked outside of it
+window.onclick = function(event) {
+    const modal = document.getElementById('profileModal');
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+}
+
+
+</script>
+
 </body>
-</html>
+</html> 
+ 

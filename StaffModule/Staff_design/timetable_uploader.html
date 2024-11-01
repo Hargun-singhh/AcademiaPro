@@ -95,12 +95,12 @@
 
         const pdfRef = storage.ref().child(`timetables/${year}_${department}_${batch}_${semester}.pdf`);
 
+
         try {
             await pdfRef.put(file);
             alert("File uploaded successfully!");
             fileInput.value = '';
             fileNameDisplay.innerText = '';
-            window.location.href = `timetable.html?year=${year}&department=${department}&batch=${batch}&semester=${semester}`;
         } catch (error) {
             console.error('Upload error:', error);
             alert('Failed to upload file: ' + error.message);

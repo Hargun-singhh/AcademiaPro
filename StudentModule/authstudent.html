@@ -237,10 +237,10 @@
     if (userData.status === "approved") {
         const detailsCollection = await db.collection('students').doc(rollno).collection('details').get();
         if (detailsCollection) {
-           
+            // Redirect to homepage if the profile is complete
             window.location.href = "homepage.html";
         } else {
-            
+            // Redirect to profile page if the profile is incomplete
             window.location.href = "profile.html";
         }
                       localStorage.setItem('rollno', rollno);

@@ -3,119 +3,240 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Responsive Time Table</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Retrieve Time Table</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
-        /* General Styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
 
-body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    background-color: #f0f4f8;
+        header {
+            margin-bottom: 20px;
+        }
 
-}
+        h2 {
+            font-size: 2.5rem;
+            color: #333;
+        }
 
-/* Navbar */
-nav {
-    width: 100%;
-    background-color: #254563;
-    padding: 15px;
-    position: fixed; /* Fix the navbar at the top */
-    top: 0; /* Position it at the top */
-    left: 0; /* Align it to the left */
-    z-index: 1000; /
-}
+        /* Navbar Styles */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: #2c3e50;
+            color: white;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000; /* Make sure the navbar is above other content */
+        }
 
-.nav-bar h1 {
-    text-align: center;
-    color: white;
-    font-size: 24px;
-}
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 1.1rem;
+        }
 
-/* Container */
-.container {
-    margin-top: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 80%;
-}
+        .navbar a:hover {
+            text-decoration: underline;
+        }
 
-/* Timetable Frame */
-.timetable-frame {
-    background-color: #ecf0f1;
-    padding: 20px;
-    border: 2px solid #bdc3c7;
-    border-radius: 10px;
-    width: 100%;
-    max-width: 800px;
-}
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            width: 90%;
+            max-width: 1200px;
+            margin-top: 80px; /* Add margin to avoid overlap with navbar */
+        }
 
-.timetable-content {
-    width: 100%;
-    background-color: #bdc3c7;
-    height: 400px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+        .form-container {
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
 
-.timetable-content p {
-    color: white;
-    font-size: 18px;
-}
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+            color: #555;
+        }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .nav-bar h1 {
-        font-size: 20px;
-    }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
 
-    .timetable-frame {
-        padding: 15px;
-    }
+        input[type="text"]:focus {
+            border-color: #2c3e50;
+            outline: none;
+        }
 
-    .timetable-content {
-        height: 300px;
-    }
-}
+        button {
+            background-color: #2c3e50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
 
-@media (max-width: 480px) {
-    .nav-bar h1 {
-        font-size: 18px;
-    }
+        button:hover {
+            background-color: #3d556d;
+        }
 
-    .timetable-content p {
-        font-size: 16px;
-    }
-}
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            background-color: #f9f9f9;
+            display: none; /* Hidden by default */
+            width: 100%;
+        }
 
+        iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .timetable-container {
+            flex-grow: 1;
+            margin-left: 20px; /* Space between form and timetable */
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .timetable-frame {
+            width: 100%;
+            max-width: 800px; /* Adjust the max width as needed */
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+        }
     </style>
-
 </head>
 <body>
-    <nav>
-        <div class="nav-bar">
-            <h1>Time Table</h1>
-        </div>
-    </nav>
-    <div class="container">
-        <div class="timetable-frame">
-            <div class="timetable-content">
-                <p>Time Table pdf will show here</p>
-            </div>
-        </div>
+
+<!-- Fixed Navbar -->
+<div class="navbar">
+    <div class="navbar-logo">Academia</div>
+    <div class="navbar-links">
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+        <a href="#">Help</a>
+    </div>
+</div>
+
+<header>
+    <h2>RETRIEVE TIME TABLE</h2>
+</header>
+
+<div class="container">
+    <div class="form-container">
+        <form id="retrieve-form">
+            <label for="batch">BATCH :</label>
+            <input type="text" id="batch" placeholder="Enter Batch" required>
+
+            <label for="semester">SEMESTER :</label>
+            <input type="text" id="semester" placeholder="Enter Semester" required>
+
+            <label for="department">DEPARTMENT :</label>
+            <input type="text" id="department" placeholder="Enter Department" required>
+
+            <label for="year">YEAR :</label>
+            <input type="text" id="year" placeholder="Enter Year" required>
+
+            <button type="submit">Retrieve</button>
+        </form>
     </div>
 
-    <script src="script.js"></script>
+    <div class="timetable-container">
+        <div class="timetable-frame" id="result">
+            <iframe id="timetable-iframe" style="display: none;"></iframe>
+            <p id="placeholder-text" style="text-align: center; margin: 0; display: none;">Loading timetable...</p>
+        </div>
+    </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-storage-compat.js"></script>
+
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyApEZByeoMNO_j88VSqFTBQ9dB7pepExWo",
+        authDomain: "academiapro-692a4.firebaseapp.com",
+        projectId: "academiapro-692a4",
+        storageBucket: "academiapro-692a4.appspot.com",
+        messagingSenderId: "634388116599",
+        appId: "1:634388116599:web:92d9bd3ecbb325bf4b4272",
+        measurementId: "G-7ZHQZYR9SX"
+    };
+
+    const app = firebase.initializeApp(firebaseConfig);
+    const storage = firebase.storage();
+
+    const retrieveForm = document.getElementById('retrieve-form');
+    const resultDiv = document.getElementById('result');
+    const timetableIframe = document.getElementById('timetable-iframe');
+    const placeholderText = document.getElementById('placeholder-text');
+
+    retrieveForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const batch = document.getElementById('batch').value;
+        const semester = document.getElementById('semester').value;
+        const department = document.getElementById('department').value;
+        const year = document.getElementById('year').value;
+
+        const pdfPath = `timetables/${year}_${department}_${batch}_${semester}.pdf`;
+        const pdfRef = storage.ref(pdfPath);
+
+        placeholderText.style.display = 'block'; // Show loading message
+        timetableIframe.style.display = 'none'; // Hide the iframe initially
+
+        try {
+            const url = await pdfRef.getDownloadURL();
+            timetableIframe.src = url;
+            timetableIframe.style.display = 'block'; // Show the iframe
+            placeholderText.style.display = 'none'; // Hide loading message
+        } catch (error) {
+            console.error('Error retrieving file:', error);
+            resultDiv.innerText = 'Failed to retrieve file: ' + error.message;
+            resultDiv.style.display = 'block'; // Show error messag
+        }
+    });
+</script>
 </body>
 </html>

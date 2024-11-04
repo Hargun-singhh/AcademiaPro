@@ -94,7 +94,7 @@
         const year = document.getElementById('year').value;
 
         const pdfRef = storage.ref().child(`timetables/${year}_${department}_${batch}_${semester}.pdf`);
-
+       
 
         try {
             await pdfRef.put(file);

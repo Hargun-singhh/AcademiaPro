@@ -253,7 +253,6 @@
                 <input type="text" id="bloodGroup" placeholder="Blood Group">
                 <input type="text" id="gender" placeholder="Gender">
                 <input type="date" id="dob" placeholder="DOB" required>
-           
                 <input type="text" id="branch" placeholder="Branch" required>
                 <input type="text" id="fatherName" placeholder="Father's Name" required>
                 <input type="tel" id="fatherPhone" placeholder="Father's Phone" required>
@@ -351,7 +350,6 @@ document.getElementById('studentForm').addEventListener('submit', async (e) => {
         gender: document.getElementById('gender').value,
         dob: document.getElementById('dob').value,
         branch: document.getElementById('branch').value,
-        sem: document.getElementById('sem').value,
         parent: {
             father: {
                 name: document.getElementById('fatherName').value,
@@ -365,23 +363,20 @@ document.getElementById('studentForm').addEventListener('submit', async (e) => {
     };
 
     try {
-        // Use rollno for the student document ID
-        const studentRef = db.collection('students').doc(studentData.rollNo);
-        await studentRef.set(studentData);
+            const docRef = db.collection('student').doc(studentData.rollNo).collection('details').doc(studentData.rollNo); // Use email as document ID and roll number for details
+            await docRef.set(studentData);
+            alert("Student profile created successfully!");
+            window.location.href ='homepage.html';
+            document.getElementById('profileModal').style.display = 'none'; // Close modal on successful submission
+            document.getElementById('studentForm').reset(); // Reset form fields
+        } catch (error) {
+            console.error("Error adding document: ", error);
+            alert("Error creating student profile.");
+        }
+    });
 
-        // Use rollno for the details collection, but consider a unique ID for each document
-        const detailsRef = studentRef.collection('details').doc(studentData.rollNo); // Adjust if needed
-        await detailsRef.set(studentData);
 
-        alert("Student profile created successfully!");
-        document.getElementById('profileModal').style.display = 'none'; // Close modal on successful submission
-        document.getElementById('studentForm').reset(); // Reset form fields
-        window.location.href ='homepage.html'; 
-    } catch (error) {
-    console.error("Error adding document: ", error.message); // log more details about the error
-    alert("Error creating student profile: " + error.message); // show error message to user
-}
-});
+
 
 // Close modal if clicked outside of it
 window.onclick = function(event) {

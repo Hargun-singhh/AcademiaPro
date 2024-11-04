@@ -236,7 +236,7 @@
     const userData = userDoc.data();
     if (userData.status === "approved") {
         const detailsCollection = await db.collection('students').doc(rollno).collection('details').get();
-        if (!detailsCollection.empty) {
+        if (detailsCollection) {
             // Redirect to homepage if the profile is complete
             window.location.href = "homepage.html";
         } else {

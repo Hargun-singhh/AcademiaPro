@@ -208,15 +208,15 @@
     <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore-compat.js"></script>
     <script>
       // Firebase configuration
-      const firebaseConfig = {
-          apiKey: "AIzaSyAK8de7_sRE5DVRhIQ6SPpAgqSyqcFTIIM",
-          authDomain: "academiapro-bd0a6.firebaseapp.com",
-          projectId: "academiapro-bd0a6",
-          storageBucket: "academiapro-bd0a6.appspot.com",
-          messagingSenderId: "529677900658",
-          appId: "1:529677900658:web:ad5654b1bb976c935d5beb",
-          measurementId: "G-BEM8XGW7QC"
-      };
+      const firebaseConfig = { 
+    apiKey: "AIzaSyApEZByeoMNO_j88VSqFTBQ9dB7pepExWo",
+    authDomain: "academiapro-692a4.firebaseapp.com",
+    projectId: "academiapro-692a4",
+    storageBucket: "academiapro-692a4.appspot.com",
+    messagingSenderId: "634388116599",
+    appId: "1:634388116599:web:92d9bd3ecbb325bf4b4272",
+    measurementId: "G-7ZHQZYR9SX"
+};
     
       // Initialize Firebase
       const app = firebase.initializeApp(firebaseConfig);
@@ -233,9 +233,16 @@
           try {
               const userDoc = await db.collection('student').doc(rollno).get(); // Use roll number as doc ID
               if (userDoc.exists) {
-                  const userData = userDoc.data();
-                  if (userData.status === "approved") {
-                      window.location.href = "homepage.html";
+    const userData = userDoc.data();
+    if (userData.status === "approved") {
+        const detailsCollection = await db.collection('students').doc(rollno).collection('details').get();
+        if (detailsCollection) {
+           
+            window.location.href = "homepage.html";
+        } else {
+            
+            window.location.href = "profile.html";
+        }
                       localStorage.setItem('rollno', rollno);
                   } else if (userData.status === "rejected") {
                       alert("Your account has been rejected. Please contact the owner.");
